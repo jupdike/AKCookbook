@@ -1,0 +1,539 @@
+<control>
+default_path=Samples/
+label_cc7=Vol
+label_cc10=Pan
+label_cc64=Sus Pedal
+label_cc20=String Res
+label_cc21=Hammer Noise
+label_cc22=Pedal Noise
+label_cc72=Release
+label_cc98=Offset
+label_cc99=Veltrack
+set_cc7=100
+set_hdcc10=0.5
+set_hdcc20=0.5
+set_hdcc21=0.5
+set_hdcc22=0.5
+set_hdcc72=0.5
+set_hdcc98=0
+set_hdcc99=0.73
+<global>
+amplitude_oncc7=100
+amplitude_curvecc7=4
+pan_oncc10=100
+pan_curvecc10=1
+amp_veltrack_oncc99=-100
+amp_veltrack_curvecc99=2
+ampeg_release_oncc72=2
+ampeg_attack_oncc98=0.001
+ampeg_attack_curvecc98=7
+note_polyphony=1
+off_time=0.5
+sw_lokey=C0
+sw_hikey=C#0
+sw_default=C0
+<master>
+sw_last=C0
+sw_label=Natural
+master_label=Notes
+<group>  lovel=1 hivel=26 group_label=v1
+<region> region_label=01 tune=0 offset_oncc98=481 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v1.wv
+<region> region_label=02 tune=0 offset_oncc98=1388 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v1.wv
+<region> region_label=03 tune=0 offset_oncc98=1059 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v1.wv
+<region> region_label=04 tune=0 offset_oncc98=971 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v1.wv
+<region> region_label=05 tune=0 offset_oncc98=356 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v1.wv
+<region> region_label=06 tune=0 offset_oncc98=682 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v1.wv
+<region> region_label=07 tune=0 offset_oncc98=711 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v1.wv
+<region> region_label=08 tune=0 offset_oncc98=995 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v1.wv
+<region> region_label=09 tune=0 offset_oncc98=894 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v1.wv
+<region> region_label=10 tune=0 offset_oncc98=918 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v1.wv
+<region> region_label=11 tune=0 offset_oncc98=883 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v1.wv
+<region> region_label=12 tune=0 offset_oncc98=698 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v1.wv
+<region> region_label=13 tune=0 offset_oncc98=714 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v1.wv
+<region> region_label=14 tune=0 offset_oncc98=695 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v1.wv
+<region> region_label=15 tune=0 offset_oncc98=662 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v1.wv
+<region> region_label=16 tune=0 offset_oncc98=515 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v1.wv
+<region> region_label=17 tune=0 offset_oncc98=609 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v1.wv
+<region> region_label=18 tune=0 offset_oncc98=569 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v1.wv
+<region> region_label=19 tune=0 offset_oncc98=638 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v1.wv
+<region> region_label=20 tune=0 offset_oncc98=610 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v1.wv
+<region> region_label=21 tune=0 offset_oncc98=599 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v1.wv
+<region> region_label=22 tune=0 offset_oncc98=1071 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v1.wv
+<region> region_label=23 tune=0 offset_oncc98=633 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v1.wv
+<region> region_label=24 tune=0 offset_oncc98=674 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v1.wv
+<region> region_label=25 tune=0 offset_oncc98=760 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v1.wv
+<region> region_label=26 tune=0 offset_oncc98=556 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v1.wv
+<region> region_label=27 tune=0 offset_oncc98=528 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v1.wv
+<region> region_label=28 tune=0 offset_oncc98=665 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v1.wv
+<region> region_label=29 tune=0 offset_oncc98=1058 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v1.wv
+<region> region_label=30 tune=0 offset_oncc98=650 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v1.wv
+<group>  lovel=27 hivel=34 group_label=v2
+<region> region_label=01 tune=0 offset_oncc98=866 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v2.wv
+<region> region_label=02 tune=0 offset_oncc98=2717 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v2.wv
+<region> region_label=03 tune=0 offset_oncc98=1096 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v2.wv
+<region> region_label=04 tune=0 offset_oncc98=940 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v2.wv
+<region> region_label=05 tune=0 offset_oncc98=752 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v2.wv
+<region> region_label=06 tune=0 offset_oncc98=812 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v2.wv
+<region> region_label=07 tune=0 offset_oncc98=545 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v2.wv
+<region> region_label=08 tune=0 offset_oncc98=863 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v2.wv
+<region> region_label=09 tune=0 offset_oncc98=554 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v2.wv
+<region> region_label=10 tune=0 offset_oncc98=874 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v2.wv
+<region> region_label=11 tune=0 offset_oncc98=714 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v2.wv
+<region> region_label=12 tune=0 offset_oncc98=656 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v2.wv
+<region> region_label=13 tune=0 offset_oncc98=607 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v2.wv
+<region> region_label=14 tune=0 offset_oncc98=708 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v2.wv
+<region> region_label=15 tune=0 offset_oncc98=558 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v2.wv
+<region> region_label=16 tune=0 offset_oncc98=581 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v2.wv
+<region> region_label=17 tune=0 offset_oncc98=625 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v2.wv
+<region> region_label=18 tune=0 offset_oncc98=677 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v2.wv
+<region> region_label=19 tune=0 offset_oncc98=689 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v2.wv
+<region> region_label=20 tune=0 offset_oncc98=586 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v2.wv
+<region> region_label=21 tune=0 offset_oncc98=629 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v2.wv
+<region> region_label=22 tune=0 offset_oncc98=1572 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v2.wv
+<region> region_label=23 tune=0 offset_oncc98=778 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v2.wv
+<region> region_label=24 tune=0 offset_oncc98=636 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v2.wv
+<region> region_label=25 tune=0 offset_oncc98=685 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v2.wv
+<region> region_label=26 tune=0 offset_oncc98=763 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v2.wv
+<region> region_label=27 tune=0 offset_oncc98=687 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v2.wv
+<region> region_label=28 tune=0 offset_oncc98=492 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v2.wv
+<region> region_label=29 tune=0 offset_oncc98=723 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v2.wv
+<region> region_label=30 tune=0 offset_oncc98=674 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v2.wv
+<group>  lovel=35 hivel=36 group_label=v3
+<region> region_label=01 tune=0 offset_oncc98=1148 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v3.wv
+<region> region_label=02 tune=0 offset_oncc98=1288 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v3.wv
+<region> region_label=03 tune=0 offset_oncc98=1123 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v3.wv
+<region> region_label=04 tune=0 offset_oncc98=1162 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v3.wv
+<region> region_label=05 tune=0 offset_oncc98=479 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v3.wv
+<region> region_label=06 tune=0 offset_oncc98=779 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v3.wv
+<region> region_label=07 tune=0 offset_oncc98=686 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v3.wv
+<region> region_label=08 tune=0 offset_oncc98=1000 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v3.wv
+<region> region_label=09 tune=0 offset_oncc98=675 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v3.wv
+<region> region_label=10 tune=0 offset_oncc98=1009 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v3.wv
+<region> region_label=11 tune=0 offset_oncc98=785 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v3.wv
+<region> region_label=12 tune=0 offset_oncc98=647 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v3.wv
+<region> region_label=13 tune=0 offset_oncc98=596 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v3.wv
+<region> region_label=14 tune=0 offset_oncc98=678 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v3.wv
+<region> region_label=15 tune=0 offset_oncc98=620 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v3.wv
+<region> region_label=16 tune=0 offset_oncc98=658 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v3.wv
+<region> region_label=17 tune=0 offset_oncc98=576 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v3.wv
+<region> region_label=18 tune=0 offset_oncc98=606 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v3.wv
+<region> region_label=19 tune=0 offset_oncc98=577 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v3.wv
+<region> region_label=20 tune=0 offset_oncc98=659 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v3.wv
+<region> region_label=21 tune=0 offset_oncc98=642 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v3.wv
+<region> region_label=22 tune=0 offset_oncc98=1364 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v3.wv
+<region> region_label=23 tune=0 offset_oncc98=636 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v3.wv
+<region> region_label=24 tune=0 offset_oncc98=693 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v3.wv
+<region> region_label=25 tune=0 offset_oncc98=646 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v3.wv
+<region> region_label=26 tune=0 offset_oncc98=700 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v3.wv
+<region> region_label=27 tune=0 offset_oncc98=665 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v3.wv
+<region> region_label=28 tune=0 offset_oncc98=635 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v3.wv
+<region> region_label=29 tune=0 offset_oncc98=690 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v3.wv
+<region> region_label=30 tune=0 offset_oncc98=606 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v3.wv
+<group>  lovel=37 hivel=43 group_label=v4
+<region> region_label=01 tune=0 offset_oncc98=1026 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v4.wv
+<region> region_label=02 tune=0 offset_oncc98=2272 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v4.wv
+<region> region_label=03 tune=0 offset_oncc98=1369 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v4.wv
+<region> region_label=04 tune=0 offset_oncc98=1357 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v4.wv
+<region> region_label=05 tune=0 offset_oncc98=462 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v4.wv
+<region> region_label=06 tune=0 offset_oncc98=945 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v4.wv
+<region> region_label=07 tune=0 offset_oncc98=595 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v4.wv
+<region> region_label=08 tune=0 offset_oncc98=808 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v4.wv
+<region> region_label=09 tune=0 offset_oncc98=577 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v4.wv
+<region> region_label=10 tune=0 offset_oncc98=693 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v4.wv
+<region> region_label=11 tune=0 offset_oncc98=816 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v4.wv
+<region> region_label=12 tune=0 offset_oncc98=818 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v4.wv
+<region> region_label=13 tune=0 offset_oncc98=546 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v4.wv
+<region> region_label=14 tune=0 offset_oncc98=709 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v4.wv
+<region> region_label=15 tune=0 offset_oncc98=731 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v4.wv
+<region> region_label=16 tune=0 offset_oncc98=525 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v4.wv
+<region> region_label=17 tune=0 offset_oncc98=663 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v4.wv
+<region> region_label=18 tune=0 offset_oncc98=587 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v4.wv
+<region> region_label=19 tune=0 offset_oncc98=719 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v4.wv
+<region> region_label=20 tune=0 offset_oncc98=692 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v4.wv
+<region> region_label=21 tune=0 offset_oncc98=1122 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v4.wv
+<region> region_label=22 tune=0 offset_oncc98=777 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v4.wv
+<region> region_label=23 tune=0 offset_oncc98=594 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v4.wv
+<region> region_label=24 tune=0 offset_oncc98=662 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v4.wv
+<region> region_label=25 tune=0 offset_oncc98=619 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v4.wv
+<region> region_label=26 tune=0 offset_oncc98=548 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v4.wv
+<region> region_label=27 tune=0 offset_oncc98=694 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v4.wv
+<region> region_label=28 tune=0 offset_oncc98=679 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v4.wv
+<region> region_label=29 tune=0 offset_oncc98=665 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v4.wv
+<region> region_label=30 tune=0 offset_oncc98=655 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v4.wv
+<group>  lovel=44 hivel=46 group_label=v5
+<region> region_label=01 tune=0 offset_oncc98=1118 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v5.wv
+<region> region_label=02 tune=0 offset_oncc98=1994 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v5.wv
+<region> region_label=03 tune=0 offset_oncc98=1109 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v5.wv
+<region> region_label=04 tune=0 offset_oncc98=1240 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v5.wv
+<region> region_label=05 tune=0 offset_oncc98=509 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v5.wv
+<region> region_label=06 tune=0 offset_oncc98=738 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v5.wv
+<region> region_label=07 tune=0 offset_oncc98=465 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v5.wv
+<region> region_label=08 tune=0 offset_oncc98=831 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v5.wv
+<region> region_label=09 tune=0 offset_oncc98=723 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v5.wv
+<region> region_label=10 tune=0 offset_oncc98=915 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v5.wv
+<region> region_label=11 tune=0 offset_oncc98=719 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v5.wv
+<region> region_label=12 tune=0 offset_oncc98=1016 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v5.wv
+<region> region_label=13 tune=0 offset_oncc98=745 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v5.wv
+<region> region_label=14 tune=0 offset_oncc98=562 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v5.wv
+<region> region_label=15 tune=0 offset_oncc98=784 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v5.wv
+<region> region_label=16 tune=0 offset_oncc98=587 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v5.wv
+<region> region_label=17 tune=0 offset_oncc98=685 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v5.wv
+<region> region_label=18 tune=0 offset_oncc98=595 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v5.wv
+<region> region_label=19 tune=0 offset_oncc98=730 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v5.wv
+<region> region_label=20 tune=0 offset_oncc98=636 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v5.wv
+<region> region_label=21 tune=0 offset_oncc98=783 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v5.wv
+<region> region_label=22 tune=0 offset_oncc98=624 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v5.wv
+<region> region_label=23 tune=0 offset_oncc98=595 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v5.wv
+<region> region_label=24 tune=0 offset_oncc98=712 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v5.wv
+<region> region_label=25 tune=0 offset_oncc98=573 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v5.wv
+<region> region_label=26 tune=0 offset_oncc98=524 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v5.wv
+<region> region_label=27 tune=0 offset_oncc98=573 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v5.wv
+<region> region_label=28 tune=0 offset_oncc98=639 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v5.wv
+<region> region_label=29 tune=0 offset_oncc98=684 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v5.wv
+<region> region_label=30 tune=0 offset_oncc98=659 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v5.wv
+<group>  lovel=47 hivel=50 group_label=v6
+<region> region_label=01 tune=0 offset_oncc98=1678 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v6.wv
+<region> region_label=02 tune=0 offset_oncc98=1928 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v6.wv
+<region> region_label=03 tune=0 offset_oncc98=1344 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v6.wv
+<region> region_label=04 tune=0 offset_oncc98=1233 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v6.wv
+<region> region_label=05 tune=0 offset_oncc98=757 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v6.wv
+<region> region_label=06 tune=0 offset_oncc98=677 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v6.wv
+<region> region_label=07 tune=0 offset_oncc98=566 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v6.wv
+<region> region_label=08 tune=0 offset_oncc98=921 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v6.wv
+<region> region_label=09 tune=0 offset_oncc98=803 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v6.wv
+<region> region_label=10 tune=0 offset_oncc98=971 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v6.wv
+<region> region_label=11 tune=0 offset_oncc98=746 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v6.wv
+<region> region_label=12 tune=0 offset_oncc98=867 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v6.wv
+<region> region_label=13 tune=0 offset_oncc98=661 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v6.wv
+<region> region_label=14 tune=0 offset_oncc98=786 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v6.wv
+<region> region_label=15 tune=0 offset_oncc98=670 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v6.wv
+<region> region_label=16 tune=0 offset_oncc98=669 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v6.wv
+<region> region_label=17 tune=0 offset_oncc98=645 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v6.wv
+<region> region_label=18 tune=0 offset_oncc98=676 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v6.wv
+<region> region_label=19 tune=0 offset_oncc98=745 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v6.wv
+<region> region_label=20 tune=0 offset_oncc98=664 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v6.wv
+<region> region_label=21 tune=0 offset_oncc98=1065 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v6.wv
+<region> region_label=22 tune=0 offset_oncc98=758 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v6.wv
+<region> region_label=23 tune=0 offset_oncc98=604 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v6.wv
+<region> region_label=24 tune=0 offset_oncc98=647 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v6.wv
+<region> region_label=25 tune=0 offset_oncc98=668 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v6.wv
+<region> region_label=26 tune=0 offset_oncc98=709 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v6.wv
+<region> region_label=27 tune=0 offset_oncc98=461 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v6.wv
+<region> region_label=28 tune=0 offset_oncc98=721 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v6.wv
+<region> region_label=29 tune=0 offset_oncc98=632 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v6.wv
+<region> region_label=30 tune=0 offset_oncc98=663 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v6.wv
+<group>  lovel=51 hivel=56 group_label=v7
+<region> region_label=01 tune=0 offset_oncc98=866 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v7.wv
+<region> region_label=02 tune=0 offset_oncc98=1825 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v7.wv
+<region> region_label=03 tune=0 offset_oncc98=1233 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v7.wv
+<region> region_label=04 tune=0 offset_oncc98=1246 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v7.wv
+<region> region_label=05 tune=0 offset_oncc98=774 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v7.wv
+<region> region_label=06 tune=0 offset_oncc98=813 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v7.wv
+<region> region_label=07 tune=0 offset_oncc98=554 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v7.wv
+<region> region_label=08 tune=0 offset_oncc98=709 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v7.wv
+<region> region_label=09 tune=0 offset_oncc98=748 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v7.wv
+<region> region_label=10 tune=0 offset_oncc98=895 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v7.wv
+<region> region_label=11 tune=0 offset_oncc98=765 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v7.wv
+<region> region_label=12 tune=0 offset_oncc98=767 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v7.wv
+<region> region_label=13 tune=0 offset_oncc98=586 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v7.wv
+<region> region_label=14 tune=0 offset_oncc98=798 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v7.wv
+<region> region_label=15 tune=0 offset_oncc98=695 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v7.wv
+<region> region_label=16 tune=0 offset_oncc98=687 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v7.wv
+<region> region_label=17 tune=0 offset_oncc98=549 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v7.wv
+<region> region_label=18 tune=0 offset_oncc98=668 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v7.wv
+<region> region_label=19 tune=0 offset_oncc98=667 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v7.wv
+<region> region_label=20 tune=0 offset_oncc98=690 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v7.wv
+<region> region_label=21 tune=0 offset_oncc98=403 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v7.wv
+<region> region_label=22 tune=0 offset_oncc98=598 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v7.wv
+<region> region_label=23 tune=0 offset_oncc98=596 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v7.wv
+<region> region_label=24 tune=0 offset_oncc98=633 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v7.wv
+<region> region_label=25 tune=0 offset_oncc98=719 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v7.wv
+<region> region_label=26 tune=0 offset_oncc98=595 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v7.wv
+<region> region_label=27 tune=0 offset_oncc98=576 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v7.wv
+<region> region_label=28 tune=0 offset_oncc98=686 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v7.wv
+<region> region_label=29 tune=0 offset_oncc98=654 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v7.wv
+<region> region_label=30 tune=0 offset_oncc98=608 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v7.wv
+<group>  lovel=57 hivel=64 group_label=v8
+<region> region_label=01 tune=0 offset_oncc98=1206 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v8.wv
+<region> region_label=02 tune=0 offset_oncc98=1771 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v8.wv
+<region> region_label=03 tune=0 offset_oncc98=1268 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v8.wv
+<region> region_label=04 tune=0 offset_oncc98=1281 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v8.wv
+<region> region_label=05 tune=0 offset_oncc98=673 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v8.wv
+<region> region_label=06 tune=0 offset_oncc98=761 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v8.wv
+<region> region_label=07 tune=0 offset_oncc98=670 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v8.wv
+<region> region_label=08 tune=0 offset_oncc98=618 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v8.wv
+<region> region_label=09 tune=0 offset_oncc98=757 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v8.wv
+<region> region_label=10 tune=0 offset_oncc98=796 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v8.wv
+<region> region_label=11 tune=0 offset_oncc98=781 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v8.wv
+<region> region_label=12 tune=0 offset_oncc98=814 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v8.wv
+<region> region_label=13 tune=0 offset_oncc98=705 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v8.wv
+<region> region_label=14 tune=0 offset_oncc98=723 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v8.wv
+<region> region_label=15 tune=0 offset_oncc98=687 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v8.wv
+<region> region_label=16 tune=0 offset_oncc98=725 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v8.wv
+<region> region_label=17 tune=0 offset_oncc98=612 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v8.wv
+<region> region_label=18 tune=0 offset_oncc98=498 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v8.wv
+<region> region_label=19 tune=0 offset_oncc98=754 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v8.wv
+<region> region_label=20 tune=0 offset_oncc98=712 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v8.wv
+<region> region_label=21 tune=0 offset_oncc98=532 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v8.wv
+<region> region_label=22 tune=0 offset_oncc98=780 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v8.wv
+<region> region_label=23 tune=0 offset_oncc98=672 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v8.wv
+<region> region_label=24 tune=0 offset_oncc98=669 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v8.wv
+<region> region_label=25 tune=0 offset_oncc98=632 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v8.wv
+<region> region_label=26 tune=0 offset_oncc98=608 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v8.wv
+<region> region_label=27 tune=0 offset_oncc98=750 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v8.wv
+<region> region_label=28 tune=0 offset_oncc98=727 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v8.wv
+<region> region_label=29 tune=0 offset_oncc98=694 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v8.wv
+<region> region_label=30 tune=0 offset_oncc98=708 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v8.wv
+<group>  lovel=65 hivel=72 group_label=v9
+<region> region_label=01 tune=0 offset_oncc98=1191 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v9.wv
+<region> region_label=02 tune=0 offset_oncc98=1794 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v9.wv
+<region> region_label=03 tune=0 offset_oncc98=1237 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v9.wv
+<region> region_label=04 tune=0 offset_oncc98=1390 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v9.wv
+<region> region_label=05 tune=0 offset_oncc98=453 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v9.wv
+<region> region_label=06 tune=0 offset_oncc98=751 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v9.wv
+<region> region_label=07 tune=0 offset_oncc98=618 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v9.wv
+<region> region_label=08 tune=0 offset_oncc98=832 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v9.wv
+<region> region_label=09 tune=0 offset_oncc98=799 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v9.wv
+<region> region_label=10 tune=0 offset_oncc98=935 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v9.wv
+<region> region_label=11 tune=0 offset_oncc98=806 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v9.wv
+<region> region_label=12 tune=0 offset_oncc98=815 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v9.wv
+<region> region_label=13 tune=0 offset_oncc98=690 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v9.wv
+<region> region_label=14 tune=0 offset_oncc98=754 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v9.wv
+<region> region_label=15 tune=0 offset_oncc98=616 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v9.wv
+<region> region_label=16 tune=0 offset_oncc98=732 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v9.wv
+<region> region_label=17 tune=0 offset_oncc98=669 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v9.wv
+<region> region_label=18 tune=0 offset_oncc98=677 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v9.wv
+<region> region_label=19 tune=0 offset_oncc98=744 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v9.wv
+<region> region_label=20 tune=0 offset_oncc98=733 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v9.wv
+<region> region_label=21 tune=0 offset_oncc98=395 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v9.wv
+<region> region_label=22 tune=0 offset_oncc98=524 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v9.wv
+<region> region_label=23 tune=0 offset_oncc98=572 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v9.wv
+<region> region_label=24 tune=0 offset_oncc98=625 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v9.wv
+<region> region_label=25 tune=0 offset_oncc98=657 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v9.wv
+<region> region_label=26 tune=0 offset_oncc98=631 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v9.wv
+<region> region_label=27 tune=0 offset_oncc98=644 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v9.wv
+<region> region_label=28 tune=0 offset_oncc98=569 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v9.wv
+<region> region_label=29 tune=0 offset_oncc98=717 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v9.wv
+<region> region_label=30 tune=0 offset_oncc98=579 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v9.wv
+<group>  lovel=73 hivel=80 group_label=v10
+<region> region_label=01 tune=0 offset_oncc98=1788 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v10.wv
+<region> region_label=02 tune=0 offset_oncc98=1382 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v10.wv
+<region> region_label=03 tune=0 offset_oncc98=1152 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v10.wv
+<region> region_label=04 tune=0 offset_oncc98=1008 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v10.wv
+<region> region_label=05 tune=0 offset_oncc98=797 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v10.wv
+<region> region_label=06 tune=0 offset_oncc98=811 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v10.wv
+<region> region_label=07 tune=0 offset_oncc98=663 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v10.wv
+<region> region_label=08 tune=0 offset_oncc98=813 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v10.wv
+<region> region_label=09 tune=0 offset_oncc98=675 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v10.wv
+<region> region_label=10 tune=0 offset_oncc98=775 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v10.wv
+<region> region_label=11 tune=0 offset_oncc98=624 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v10.wv
+<region> region_label=12 tune=0 offset_oncc98=658 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v10.wv
+<region> region_label=13 tune=0 offset_oncc98=660 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v10.wv
+<region> region_label=14 tune=0 offset_oncc98=822 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v10.wv
+<region> region_label=15 tune=0 offset_oncc98=670 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v10.wv
+<region> region_label=16 tune=0 offset_oncc98=571 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v10.wv
+<region> region_label=17 tune=0 offset_oncc98=593 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v10.wv
+<region> region_label=18 tune=0 offset_oncc98=702 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v10.wv
+<region> region_label=19 tune=0 offset_oncc98=682 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v10.wv
+<region> region_label=20 tune=0 offset_oncc98=680 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v10.wv
+<region> region_label=21 tune=0 offset_oncc98=593 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v10.wv
+<region> region_label=22 tune=0 offset_oncc98=542 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v10.wv
+<region> region_label=23 tune=0 offset_oncc98=528 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v10.wv
+<region> region_label=24 tune=0 offset_oncc98=773 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v10.wv
+<region> region_label=25 tune=0 offset_oncc98=549 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v10.wv
+<region> region_label=26 tune=0 offset_oncc98=616 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v10.wv
+<region> region_label=27 tune=0 offset_oncc98=770 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v10.wv
+<region> region_label=28 tune=0 offset_oncc98=591 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v10.wv
+<region> region_label=29 tune=0 offset_oncc98=690 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v10.wv
+<region> region_label=30 tune=0 offset_oncc98=632 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v10.wv
+<group>  lovel=81 hivel=88 group_label=v11
+<region> region_label=01 tune=0 offset_oncc98=1231 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v11.wv
+<region> region_label=02 tune=0 offset_oncc98=2351 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v11.wv
+<region> region_label=03 tune=0 offset_oncc98=1221 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v11.wv
+<region> region_label=04 tune=0 offset_oncc98=1315 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v11.wv
+<region> region_label=05 tune=0 offset_oncc98=738 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v11.wv
+<region> region_label=06 tune=0 offset_oncc98=813 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v11.wv
+<region> region_label=07 tune=0 offset_oncc98=665 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v11.wv
+<region> region_label=08 tune=0 offset_oncc98=712 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v11.wv
+<region> region_label=09 tune=0 offset_oncc98=784 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v11.wv
+<region> region_label=10 tune=0 offset_oncc98=857 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v11.wv
+<region> region_label=11 tune=0 offset_oncc98=733 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v11.wv
+<region> region_label=12 tune=0 offset_oncc98=748 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v11.wv
+<region> region_label=13 tune=0 offset_oncc98=696 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v11.wv
+<region> region_label=14 tune=0 offset_oncc98=671 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v11.wv
+<region> region_label=15 tune=0 offset_oncc98=702 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v11.wv
+<region> region_label=16 tune=0 offset_oncc98=619 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v11.wv
+<region> region_label=17 tune=0 offset_oncc98=627 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v11.wv
+<region> region_label=18 tune=0 offset_oncc98=815 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v11.wv
+<region> region_label=19 tune=0 offset_oncc98=729 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v11.wv
+<region> region_label=20 tune=0 offset_oncc98=754 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v11.wv
+<region> region_label=21 tune=0 offset_oncc98=422 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v11.wv
+<region> region_label=22 tune=0 offset_oncc98=644 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v11.wv
+<region> region_label=23 tune=0 offset_oncc98=591 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v11.wv
+<region> region_label=24 tune=0 offset_oncc98=567 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v11.wv
+<region> region_label=25 tune=0 offset_oncc98=670 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v11.wv
+<region> region_label=26 tune=0 offset_oncc98=616 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v11.wv
+<region> region_label=27 tune=0 offset_oncc98=781 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v11.wv
+<region> region_label=28 tune=0 offset_oncc98=838 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v11.wv
+<region> region_label=29 tune=0 offset_oncc98=682 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v11.wv
+<region> region_label=30 tune=0 offset_oncc98=616 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v11.wv
+<group>  lovel=89 hivel=96 group_label=v12
+<region> region_label=01 tune=0 offset_oncc98=1127 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v12.wv
+<region> region_label=02 tune=0 offset_oncc98=2135 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v12.wv
+<region> region_label=03 tune=0 offset_oncc98=1151 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v12.wv
+<region> region_label=04 tune=0 offset_oncc98=1248 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v12.wv
+<region> region_label=05 tune=0 offset_oncc98=717 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v12.wv
+<region> region_label=06 tune=0 offset_oncc98=648 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v12.wv
+<region> region_label=07 tune=0 offset_oncc98=719 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v12.wv
+<region> region_label=08 tune=0 offset_oncc98=812 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v12.wv
+<region> region_label=09 tune=0 offset_oncc98=757 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v12.wv
+<region> region_label=10 tune=0 offset_oncc98=856 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v12.wv
+<region> region_label=11 tune=0 offset_oncc98=720 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v12.wv
+<region> region_label=12 tune=0 offset_oncc98=743 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v12.wv
+<region> region_label=13 tune=0 offset_oncc98=727 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v12.wv
+<region> region_label=14 tune=0 offset_oncc98=691 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v12.wv
+<region> region_label=15 tune=0 offset_oncc98=573 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v12.wv
+<region> region_label=16 tune=0 offset_oncc98=654 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v12.wv
+<region> region_label=17 tune=0 offset_oncc98=537 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v12.wv
+<region> region_label=18 tune=0 offset_oncc98=814 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v12.wv
+<region> region_label=19 tune=0 offset_oncc98=686 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v12.wv
+<region> region_label=20 tune=0 offset_oncc98=709 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v12.wv
+<region> region_label=21 tune=0 offset_oncc98=636 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v12.wv
+<region> region_label=22 tune=0 offset_oncc98=614 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v12.wv
+<region> region_label=23 tune=0 offset_oncc98=663 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v12.wv
+<region> region_label=24 tune=0 offset_oncc98=632 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v12.wv
+<region> region_label=25 tune=0 offset_oncc98=592 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v12.wv
+<region> region_label=26 tune=0 offset_oncc98=655 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v12.wv
+<region> region_label=27 tune=0 offset_oncc98=598 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v12.wv
+<region> region_label=28 tune=0 offset_oncc98=650 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v12.wv
+<region> region_label=29 tune=0 offset_oncc98=707 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v12.wv
+<region> region_label=30 tune=0 offset_oncc98=579 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v12.wv
+<group>  lovel=97 hivel=104 group_label=v13
+<region> region_label=01 tune=0 offset_oncc98=1861 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v13.wv
+<region> region_label=02 tune=0 offset_oncc98=2402 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v13.wv
+<region> region_label=03 tune=0 offset_oncc98=1320 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v13.wv
+<region> region_label=04 tune=0 offset_oncc98=1187 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v13.wv
+<region> region_label=05 tune=0 offset_oncc98=615 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v13.wv
+<region> region_label=06 tune=0 offset_oncc98=716 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v13.wv
+<region> region_label=07 tune=0 offset_oncc98=787 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v13.wv
+<region> region_label=08 tune=0 offset_oncc98=931 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v13.wv
+<region> region_label=09 tune=0 offset_oncc98=761 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v13.wv
+<region> region_label=10 tune=0 offset_oncc98=849 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v13.wv
+<region> region_label=11 tune=0 offset_oncc98=785 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v13.wv
+<region> region_label=12 tune=0 offset_oncc98=752 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v13.wv
+<region> region_label=13 tune=0 offset_oncc98=800 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v13.wv
+<region> region_label=14 tune=0 offset_oncc98=783 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v13.wv
+<region> region_label=15 tune=0 offset_oncc98=628 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v13.wv
+<region> region_label=16 tune=0 offset_oncc98=474 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v13.wv
+<region> region_label=17 tune=0 offset_oncc98=651 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v13.wv
+<region> region_label=18 tune=0 offset_oncc98=600 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v13.wv
+<region> region_label=19 tune=0 offset_oncc98=648 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v13.wv
+<region> region_label=20 tune=0 offset_oncc98=644 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v13.wv
+<region> region_label=21 tune=0 offset_oncc98=913 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v13.wv
+<region> region_label=22 tune=0 offset_oncc98=635 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v13.wv
+<region> region_label=23 tune=0 offset_oncc98=586 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v13.wv
+<region> region_label=24 tune=0 offset_oncc98=573 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v13.wv
+<region> region_label=25 tune=0 offset_oncc98=632 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v13.wv
+<region> region_label=26 tune=0 offset_oncc98=722 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v13.wv
+<region> region_label=27 tune=0 offset_oncc98=553 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v13.wv
+<region> region_label=28 tune=0 offset_oncc98=599 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v13.wv
+<region> region_label=29 tune=0 offset_oncc98=601 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v13.wv
+<region> region_label=30 tune=0 offset_oncc98=661 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v13.wv
+<group>  lovel=105 hivel=112 group_label=v14
+<region> region_label=01 tune=0 offset_oncc98=1361 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v14.wv
+<region> region_label=02 tune=0 offset_oncc98=2418 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v14.wv
+<region> region_label=03 tune=0 offset_oncc98=1264 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v14.wv
+<region> region_label=04 tune=0 offset_oncc98=1217 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v14.wv
+<region> region_label=05 tune=0 offset_oncc98=800 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v14.wv
+<region> region_label=06 tune=0 offset_oncc98=630 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v14.wv
+<region> region_label=07 tune=0 offset_oncc98=818 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v14.wv
+<region> region_label=08 tune=0 offset_oncc98=1045 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v14.wv
+<region> region_label=09 tune=0 offset_oncc98=838 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v14.wv
+<region> region_label=10 tune=0 offset_oncc98=1041 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v14.wv
+<region> region_label=11 tune=0 offset_oncc98=853 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v14.wv
+<region> region_label=12 tune=0 offset_oncc98=820 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v14.wv
+<region> region_label=13 tune=0 offset_oncc98=802 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v14.wv
+<region> region_label=14 tune=0 offset_oncc98=662 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v14.wv
+<region> region_label=15 tune=0 offset_oncc98=657 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v14.wv
+<region> region_label=16 tune=0 offset_oncc98=570 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v14.wv
+<region> region_label=17 tune=0 offset_oncc98=730 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v14.wv
+<region> region_label=18 tune=0 offset_oncc98=732 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v14.wv
+<region> region_label=19 tune=0 offset_oncc98=648 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v14.wv
+<region> region_label=20 tune=0 offset_oncc98=767 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v14.wv
+<region> region_label=21 tune=0 offset_oncc98=729 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v14.wv
+<region> region_label=22 tune=0 offset_oncc98=524 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v14.wv
+<region> region_label=23 tune=0 offset_oncc98=646 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v14.wv
+<region> region_label=24 tune=0 offset_oncc98=601 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v14.wv
+<region> region_label=25 tune=0 offset_oncc98=737 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v14.wv
+<region> region_label=26 tune=0 offset_oncc98=597 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v14.wv
+<region> region_label=27 tune=0 offset_oncc98=613 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v14.wv
+<region> region_label=28 tune=0 offset_oncc98=634 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v14.wv
+<region> region_label=29 tune=0 offset_oncc98=697 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v14.wv
+<region> region_label=30 tune=0 offset_oncc98=596 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v14.wv
+<group>  lovel=113 hivel=120 group_label=v15
+<region> region_label=01 tune=0 offset_oncc98=870 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v15.wv
+<region> region_label=02 tune=0 offset_oncc98=2168 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v15.wv
+<region> region_label=03 tune=0 offset_oncc98=1287 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v15.wv
+<region> region_label=04 tune=0 offset_oncc98=1439 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v15.wv
+<region> region_label=05 tune=0 offset_oncc98=743 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v15.wv
+<region> region_label=06 tune=0 offset_oncc98=661 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v15.wv
+<region> region_label=07 tune=0 offset_oncc98=793 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v15.wv
+<region> region_label=08 tune=0 offset_oncc98=1067 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v15.wv
+<region> region_label=09 tune=0 offset_oncc98=731 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v15.wv
+<region> region_label=10 tune=0 offset_oncc98=908 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v15.wv
+<region> region_label=11 tune=0 offset_oncc98=801 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v15.wv
+<region> region_label=12 tune=0 offset_oncc98=638 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v15.wv
+<region> region_label=13 tune=0 offset_oncc98=689 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v15.wv
+<region> region_label=14 tune=0 offset_oncc98=796 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v15.wv
+<region> region_label=15 tune=0 offset_oncc98=644 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v15.wv
+<region> region_label=16 tune=0 offset_oncc98=643 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v15.wv
+<region> region_label=17 tune=0 offset_oncc98=592 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v15.wv
+<region> region_label=18 tune=0 offset_oncc98=720 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v15.wv
+<region> region_label=19 tune=0 offset_oncc98=707 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v15.wv
+<region> region_label=20 tune=0 offset_oncc98=695 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v15.wv
+<region> region_label=21 tune=0 offset_oncc98=394 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v15.wv
+<region> region_label=22 tune=0 offset_oncc98=636 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v15.wv
+<region> region_label=23 tune=0 offset_oncc98=594 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v15.wv
+<region> region_label=24 tune=0 offset_oncc98=578 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v15.wv
+<region> region_label=25 tune=0 offset_oncc98=636 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v15.wv
+<region> region_label=26 tune=0 offset_oncc98=572 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v15.wv
+<region> region_label=27 tune=0 offset_oncc98=524 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v15.wv
+<region> region_label=28 tune=0 offset_oncc98=534 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v15.wv
+<region> region_label=29 tune=0 offset_oncc98=688 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v15.wv
+<region> region_label=30 tune=0 offset_oncc98=679 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v15.wv
+<group>  lovel=121 hivel=127 group_label=v16
+<region> region_label=01 tune=0 offset_oncc98=1754 lokey=21 hikey=22 pitch_keycenter=21 sample=A0v16.wv
+<region> region_label=02 tune=0 offset_oncc98=2163 lokey=23 hikey=25 pitch_keycenter=24 sample=C1v16.wv
+<region> region_label=03 tune=0 offset_oncc98=1318 lokey=26 hikey=28 pitch_keycenter=27 sample=D#1v16.wv
+<region> region_label=04 tune=0 offset_oncc98=1134 lokey=29 hikey=31 pitch_keycenter=30 sample=F#1v16.wv
+<region> region_label=05 tune=0 offset_oncc98=699 lokey=32 hikey=34 pitch_keycenter=33 sample=A1v16.wv
+<region> region_label=06 tune=0 offset_oncc98=820 lokey=35 hikey=37 pitch_keycenter=36 sample=C2v16.wv
+<region> region_label=07 tune=0 offset_oncc98=788 lokey=38 hikey=40 pitch_keycenter=39 sample=D#2v16.wv
+<region> region_label=08 tune=0 offset_oncc98=975 lokey=41 hikey=43 pitch_keycenter=42 sample=F#2v16.wv
+<region> region_label=09 tune=0 offset_oncc98=917 lokey=44 hikey=46 pitch_keycenter=45 sample=A2v16.wv
+<region> region_label=10 tune=0 offset_oncc98=935 lokey=47 hikey=49 pitch_keycenter=48 sample=C3v16.wv
+<region> region_label=11 tune=0 offset_oncc98=870 lokey=50 hikey=52 pitch_keycenter=51 sample=D#3v16.wv
+<region> region_label=12 tune=0 offset_oncc98=879 lokey=53 hikey=55 pitch_keycenter=54 sample=F#3v16.wv
+<region> region_label=13 tune=0 offset_oncc98=839 lokey=56 hikey=58 pitch_keycenter=57 sample=A3v16.wv
+<region> region_label=14 tune=0 offset_oncc98=727 lokey=59 hikey=61 pitch_keycenter=60 sample=C4v16.wv
+<region> region_label=15 tune=0 offset_oncc98=690 lokey=62 hikey=64 pitch_keycenter=63 sample=D#4v16.wv
+<region> region_label=16 tune=0 offset_oncc98=602 lokey=65 hikey=67 pitch_keycenter=66 sample=F#4v16.wv
+<region> region_label=17 tune=0 offset_oncc98=664 lokey=68 hikey=70 pitch_keycenter=69 sample=A4v16.wv
+<region> region_label=18 tune=0 offset_oncc98=720 lokey=71 hikey=73 pitch_keycenter=72 sample=C5v16.wv
+<region> region_label=19 tune=0 offset_oncc98=707 lokey=74 hikey=76 pitch_keycenter=75 sample=D#5v16.wv
+<region> region_label=20 tune=0 offset_oncc98=693 lokey=77 hikey=79 pitch_keycenter=78 sample=F#5v16.wv
+<region> region_label=21 tune=0 offset_oncc98=1522 lokey=80 hikey=82 pitch_keycenter=81 sample=A5v16.wv
+<region> region_label=22 tune=0 offset_oncc98=626 lokey=83 hikey=85 pitch_keycenter=84 sample=C6v16.wv
+<region> region_label=23 tune=0 offset_oncc98=621 lokey=86 hikey=88 pitch_keycenter=87 sample=D#6v16.wv
+<region> region_label=24 tune=0 offset_oncc98=620 ampeg_release=3 lokey=89 hikey=91 pitch_keycenter=90 sample=F#6v16.wv
+<region> region_label=25 tune=0 offset_oncc98=635 ampeg_release=3 lokey=92 hikey=94 pitch_keycenter=93 sample=A6v16.wv
+<region> region_label=26 tune=0 offset_oncc98=554 ampeg_release=4 lokey=95 hikey=97 pitch_keycenter=96 sample=C7v16.wv
+<region> region_label=27 tune=0 offset_oncc98=524 ampeg_release=4 lokey=98 hikey=100 pitch_keycenter=99 sample=D#7v16.wv
+<region> region_label=28 tune=0 offset_oncc98=771 ampeg_release=4 lokey=101 hikey=103 pitch_keycenter=102 sample=F#7v16.wv
+<region> region_label=29 tune=0 offset_oncc98=688 ampeg_release=4 lokey=104 hikey=106 pitch_keycenter=105 sample=A7v16.wv
+<region> region_label=30 tune=0 offset_oncc98=716 ampeg_release=4 lokey=107 hikey=108 pitch_keycenter=108 sample=C8v16.wv
+<curve>
+curve_index=7
+v000=0
+v001=1
+v127=1
