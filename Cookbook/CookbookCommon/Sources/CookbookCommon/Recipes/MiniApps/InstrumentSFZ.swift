@@ -18,6 +18,7 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
     @Published var midiEventType: MIDIEventType = .none
     
     var wasDown = [Bool](repeating: false, count: 128) // key track of which keeps have been pressed when isToggleOn (sustain pedal) was depressed
+    var isHoldingWithFinger = [Bool](repeating: false, count: 128)
 
     weak var instrumentConductor: InstrumentSFZConductor?
     
@@ -55,9 +56,9 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
                 }
             }
         }
-        // TODO instrumentConductor
         let val = CGFloat( 1.0 * CGFloat(velocity) / 127.0)
         let nn = Int(noteNumber)
+        self.isHoldingWithFinger[nn] = true
         if self.isToggleOn {
             wasDown[nn] = true
         }
@@ -80,6 +81,7 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
             self.data.channel = Int(channel)
         }
         let nn = Int(noteNumber)
+        self.isHoldingWithFinger[nn] = false
         if self.isToggleOn {
             self.wasDown[nn] = true
         } else {
@@ -113,20 +115,20 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
             // Otherwise toggle it off when the CC value is toggled from 127 to 0
             // Useful for stomp box and on/off UI toggled states
             if value == 127 {
-                DispatchQueue.main.async {
-                    self.isToggleOn = true
-                }
+                //DispatchQueue.main.async {
+                self.isToggleOn = true
+                //}
             } else {
                 // Fade out the Toggle On indicator.
-                DispatchQueue.main.async {
-                    self.isToggleOn = false
-                    for i in 0 ..< 128 {
-                        if self.wasDown[i] {
-                            self.instrumentConductor?.noteOff(pitch: Pitch(Int8(i)))
-                        }
-                        self.wasDown[i] = false
+                for i in 0 ..< 128 {
+                    if self.wasDown[i] && !self.isHoldingWithFinger[i] { // do not cut off notes that are still being manually held down
+                        self.instrumentConductor?.noteOff(pitch: Pitch(Int8(i)))
                     }
+                    self.wasDown[i] = false
                 }
+                //DispatchQueue.main.async {
+                self.isToggleOn = false
+                //}
             }
         }
     }
