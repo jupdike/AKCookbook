@@ -216,7 +216,7 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
 class InstrumentSFZConductor: ObservableObject, HasAudioEngine {
     let engine = AudioEngine()
     var instrument = Sampler2()
-    var instrument2 = Sampler2()
+    //var instrument2 = Sampler2()
 
     let cond2: MIDIMonitorConductor2
     
@@ -229,13 +229,13 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine {
     
     func noteOff(pitch: Pitch) {
         instrument.stop(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), channel: 0)
-        instrument2.play(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), velocity: self.lastMidiNoteVelocty[Int(pitch.midiNoteNumber)], channel: 0)
+        //instrument2.play(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), velocity: self.lastMidiNoteVelocty[Int(pitch.midiNoteNumber)], channel: 0)
     }
     
     init() {
         // Load SFZ file with Dunne Sampler
 // // // // /// // // //        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/SalGrandPianoV3", withExtension: "sfz") {
-        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/GrandPianoV1", withExtension: "sfz") {
+        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/GrandPianoV1_halfish", withExtension: "sfz") {
 //        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/StrResV1", withExtension: "sfz") {
             instrument.loadSFZ(url: fileURL)
         } else {
@@ -245,16 +245,18 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine {
         instrument.releaseDuration = 0.2 // why doesn't this do anything? It sets the knob but in practice releaseDuration is still 0.0 seconds!
         //let RELEASE_DUR = 14
         //instrument.parameters[RELEASE_DUR] = 0.2 // sounds good when knob is fiddled with...
-        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/StrResV1", withExtension: "sfz") {
-            instrument2.loadSFZ(url: fileURL)
-        } else {
-            Log("Could not find file 2")
-        }
-        instrument2.masterVolume = 0.4
+
+//        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/StrResV1", withExtension: "sfz") {
+//            instrument2.loadSFZ(url: fileURL)
+//        } else {
+//            Log("Could not find file 2")
+//        }
+//        instrument2.masterVolume = 0.4
+
         // mixer to combine output of two instruments
-        let mixer = Mixer(instrument, instrument2)
-        engine.output = mixer
-        mixer.start()
+        //let mixer = Mixer(instrument, instrument2)
+        engine.output = instrument //mixer
+        //mixer.start()
 
         self.cond2 = MIDIMonitorConductor2()
         //self.cond2 = self
