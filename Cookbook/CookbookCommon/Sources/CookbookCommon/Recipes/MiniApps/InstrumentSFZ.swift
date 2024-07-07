@@ -235,7 +235,7 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine {
     init() {
         // Load SFZ file with Dunne Sampler
 // // // // /// // // //        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/SalGrandPianoV3", withExtension: "sfz") {
-        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/GrandPianoV1_halfish", withExtension: "sfz") {
+        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/GrandPianoV1", withExtension: "sfz") {
 //        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/StrResV1", withExtension: "sfz") {
             instrument.loadSFZ(url: fileURL)
         } else {
