@@ -183,6 +183,7 @@ struct MasterView: View {
                             NavigationLink("Pulse Width Modulation", destination: PWMOscillatorView())
                             NavigationLink("Sine", destination: OscillatorView())
                             NavigationLink("Waveform Morphing", destination: MorphingOscillatorView())
+                            NavigationLink("Synth1 Preset Loader", destination: SynthOneView())
                         }
                     }
 
