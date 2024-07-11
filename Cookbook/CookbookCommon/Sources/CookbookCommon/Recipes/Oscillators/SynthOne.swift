@@ -132,7 +132,8 @@ let myStr = """
 
 //"waveform1": 0.25,
 //"waveform2": 0.28738316893577576,
-
+//"fmAmount": 0.10666580498218536,
+//"fmVolume": 0.052148208022117615,
 
 struct Synth1Preset: Decodable {
     let adsrPitchTracking: Float
@@ -226,19 +227,23 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
     public var engine = AudioEngine()
     var vco1 = MorphingOscillator()
     var vco2 = MorphingOscillator()
+    var fmOsc = FMOscillator()
     var vco1Mixer: Mixer
     var vco2Mixer: Mixer
+    var fmOscMixer: Mixer
     var mixer: Mixer
-    var dryWetMix: DryWetMixer
+    var vcoBalancer: DryWetMixer
     
+    var vco1SemiTonesOffset: Int8
     var vco2SemiTonesOffset: Int8
     
     func noteOn(pitch: Pitch, point _: CGPoint) {
         isPlaying = true
-        vco1.frequency = AUValue(pitch.midiNoteNumber).midiNoteToFrequency()
+        vco1.frequency = AUValue(pitch.midiNoteNumber + vco1SemiTonesOffset).midiNoteToFrequency()
         //vco1.amplitude = // TODO point.whatever
         vco2.frequency = AUValue(pitch.midiNoteNumber + vco2SemiTonesOffset).midiNoteToFrequency()
         //vco2.amplitude = // TODO point.whatever
+        fmOsc.baseFrequency = AUValue(pitch.midiNoteNumber).midiNoteToFrequency()
     }
 
     func noteOff(pitch _: Pitch) {
@@ -252,10 +257,12 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
             if(isPlaying) {
                 vco1.start()
                 vco2.start()
+                fmOsc.start()
             }
             else {
                 vco1.stop()
                 vco2.stop()
+                fmOsc.stop()
             }
         }
     }
@@ -263,6 +270,7 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
     init(_ synth1Preset: Synth1Preset) {
         vco1.amplitude = synth1Preset.vco1Volume
         vco1.index = synth1Preset.waveform1 * 3.0
+        vco1SemiTonesOffset = Int8(synth1Preset.vco1Semitone)
         vco1Mixer = Mixer(vco1)
         vco1Mixer.volume = synth1Preset.vco1Volume
         
@@ -273,9 +281,16 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
         vco2Mixer = Mixer(vco2)
         vco2Mixer.volume = synth1Preset.vco2Volume
         
-        dryWetMix = DryWetMixer(vco1Mixer, vco2Mixer, balance: AUValue(synth1Preset.vcoBalance))
+        vcoBalancer = DryWetMixer(vco1Mixer, vco2Mixer, balance: AUValue(synth1Preset.vcoBalance))
         
-        mixer = Mixer(vco1Mixer, vco2Mixer)
+        fmOscMixer = Mixer(fmOsc)
+        fmOsc.modulationIndex = synth1Preset.fmAmount
+        //fmOsc.modulatingMultiplier // not used, apparently
+        fmOscMixer.volume = synth1Preset.fmVolume
+        
+        //let subOsc = Oscillator() // for sub oscillator
+        
+        mixer = Mixer(vcoBalancer, fmOscMixer)
         mixer.volume = 0.2 // TODO deal with the fact this is so loud but we don't want to blow out our ears testing
         engine.output = mixer
     }
