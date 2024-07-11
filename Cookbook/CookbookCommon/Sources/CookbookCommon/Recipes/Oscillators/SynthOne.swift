@@ -67,12 +67,12 @@ struct Synth1Preset: Decodable {
 //    "delayToggled": 0,
 //    "detuneLFO": 1,
 //    let filterADSRMix: Float
-    let filterAttack: Float
-    let filterDecay: Float
+//    let filterAttack: Float
+//    let filterDecay: Float
 //    "filterEnvLFO": 0,
-    let filterRelease: Float
-    let filterSustain: Float
-    let filterType: Int // ?
+//    let filterRelease: Float
+//    let filterSustain: Float
+//    let filterType: Int // ?
     let fmAmount: Float
 //    fmLFO: 0,
     let fmVolume: Float
