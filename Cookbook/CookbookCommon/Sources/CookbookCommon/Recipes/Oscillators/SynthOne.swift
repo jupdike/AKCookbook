@@ -228,28 +228,41 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
     var vco1 = MorphingOscillator()
     var vco2 = MorphingOscillator()
     var fmOsc = FMOscillator()
+    var subOsc: Oscillator // = Oscillator(waveform: Table(.sine))
+    //var subSquare = Oscillator(waveform: Table(.square))
+
     var vco1Mixer: Mixer
     var vco2Mixer: Mixer
     var fmOscMixer: Mixer
     var mixer: Mixer
+    var subMixer: Mixer
     var vcoBalancer: DryWetMixer
     
     var vco1SemiTonesOffset: Int8
     var vco2SemiTonesOffset: Int8
-    
+    var subIs24: Bool
+
     func noteOn(pitch: Pitch, point _: CGPoint) {
         isPlaying = true
         vco1.frequency = AUValue(pitch.midiNoteNumber + vco1SemiTonesOffset).midiNoteToFrequency()
-        //vco1.amplitude = // TODO point.whatever
         vco2.frequency = AUValue(pitch.midiNoteNumber + vco2SemiTonesOffset).midiNoteToFrequency()
-        //vco2.amplitude = // TODO point.whatever
         fmOsc.baseFrequency = AUValue(pitch.midiNoteNumber).midiNoteToFrequency()
+        if(subIs24 && pitch.midiNoteNumber > 24) {
+            subOsc.frequency = AUValue(pitch.midiNoteNumber - 24).midiNoteToFrequency()
+        }
+        else if(pitch.midiNoteNumber > 12) {
+            subOsc.frequency = AUValue(pitch.midiNoteNumber - 12).midiNoteToFrequency()
+        }
+        
+        // TODO use point.x or point.y to set ADSR envelope height / velocit / volume
+        //vco1.amplitude = // TODO point.whatever
+        //vco2.amplitude = // TODO point.whatever
     }
 
     func noteOff(pitch _: Pitch) {
         isPlaying = false
     }
-    
+
     //public parameters: NodeParameter
 
     @Published var isPlaying: Bool = false {
@@ -258,11 +271,13 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
                 vco1.start()
                 vco2.start()
                 fmOsc.start()
+                subOsc.start()
             }
             else {
                 vco1.stop()
                 vco2.stop()
                 fmOsc.stop()
+                subOsc.stop()
             }
         }
     }
@@ -288,9 +303,16 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
         //fmOsc.modulatingMultiplier // not used, apparently
         fmOscMixer.volume = synth1Preset.fmVolume
         
-        //let subOsc = Oscillator() // for sub oscillator
-        
-        mixer = Mixer(vcoBalancer, fmOscMixer)
+        subIs24 = synth1Preset.subOscIs24
+        // note this would not allow changing later, say, at runtime. You have to initialize a totally new
+        // S1GeneratorBank to get this to change
+        // OR: TODO: subBalancer = DryWetMixer(subOsc1, subOsc2) // you get the idea
+        subOsc = Oscillator(waveform:
+                                synth1Preset.subOscIsSquare ? Table(.square) : Table(.sine))
+        subMixer = Mixer(subOsc)
+        subMixer.volume = synth1Preset.subVolume
+
+        mixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
         mixer.volume = 0.2 // TODO deal with the fact this is so loud but we don't want to blow out our ears testing
         engine.output = mixer
     }
