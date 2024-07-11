@@ -228,22 +228,25 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
     var vco1 = MorphingOscillator()
     var vco2 = MorphingOscillator()
     var fmOsc = FMOscillator()
-    var subOsc: Oscillator // = Oscillator(waveform: Table(.sine))
-    //var subSquare = Oscillator(waveform: Table(.square))
+    var subOsc: Oscillator
+    var ampEnv: AmplitudeEnvelope
 
     var vco1Mixer: Mixer
     var vco2Mixer: Mixer
     var fmOscMixer: Mixer
-    var mixer: Mixer
     var subMixer: Mixer
+    var bankMixer: Mixer
     var vcoBalancer: DryWetMixer
+    var adsrMixer: Mixer
+    
+    var moogFilter: MoogLadder
     
     var vco1SemiTonesOffset: Int8
     var vco2SemiTonesOffset: Int8
     var subIs24: Bool
 
     func noteOn(pitch: Pitch, point _: CGPoint) {
-        isPlaying = true
+        //isPlaying = true
         vco1.frequency = AUValue(pitch.midiNoteNumber + vco1SemiTonesOffset).midiNoteToFrequency()
         vco2.frequency = AUValue(pitch.midiNoteNumber + vco2SemiTonesOffset).midiNoteToFrequency()
         fmOsc.baseFrequency = AUValue(pitch.midiNoteNumber).midiNoteToFrequency()
@@ -254,33 +257,38 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
             subOsc.frequency = AUValue(pitch.midiNoteNumber - 12).midiNoteToFrequency()
         }
         
-        // TODO use point.x or point.y to set ADSR envelope height / velocit / volume
+        // TODO use point.x or point.y to set ADSR envelope height / velocity / volume
         //vco1.amplitude = // TODO point.whatever
         //vco2.amplitude = // TODO point.whatever
+        ampEnv.openGate()
     }
 
     func noteOff(pitch _: Pitch) {
-        isPlaying = false
+        //isPlaying = false
+        ampEnv.closeGate()
     }
 
     //public parameters: NodeParameter
 
-    @Published var isPlaying: Bool = false {
-        didSet {
-            if(isPlaying) {
-                vco1.start()
-                vco2.start()
-                fmOsc.start()
-                subOsc.start()
-            }
-            else {
-                vco1.stop()
-                vco2.stop()
-                fmOsc.stop()
-                subOsc.stop()
-            }
-        }
-    }
+//    @Published var isPlaying: Bool = false {
+//        didSet {
+//            if(isPlaying) {
+//                vco1.start()
+//                vco2.start()
+//                fmOsc.start()
+//                subOsc.start()
+//                ampEnv.start()
+//            }
+//            // ? where to put this teardown code?
+////            else {
+////                vco1.stop()
+////                vco2.stop()
+////                fmOsc.stop()
+////                subOsc.stop()
+////                ampEnv.stop()
+////            }
+//        }
+//    }
 
     init(_ synth1Preset: Synth1Preset) {
         vco1.amplitude = synth1Preset.vco1Volume
@@ -312,9 +320,25 @@ class S1GeneratorBank: ObservableObject, HasAudioEngine {
         subMixer = Mixer(subOsc)
         subMixer.volume = synth1Preset.subVolume
 
-        mixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
-        mixer.volume = 0.2 // TODO deal with the fact this is so loud but we don't want to blow out our ears testing
-        engine.output = mixer
+        bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
+        
+        moogFilter = MoogLadder(bankMixer, cutoffFrequency: synth1Preset.cutoff, resonance: synth1Preset.resonance)
+        
+        ampEnv = AmplitudeEnvelope(moogFilter)
+        ampEnv.attackDuration = synth1Preset.attackDuration
+        ampEnv.decayDuration = synth1Preset.decayDuration
+        ampEnv.sustainLevel = synth1Preset.sustainLevel
+        ampEnv.releaseDuration = synth1Preset.releaseDuration
+        adsrMixer = Mixer(ampEnv)
+        
+        adsrMixer.volume = 0.2 // TODO deal with the fact this is so loud but we don't want to blow out our ears testing
+        engine.output = adsrMixer
+        
+        vco1.start()
+        vco2.start()
+        fmOsc.start()
+        subOsc.start()
+        ampEnv.start()
     }
 }
 
