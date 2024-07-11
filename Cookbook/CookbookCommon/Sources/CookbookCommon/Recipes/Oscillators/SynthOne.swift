@@ -38,7 +38,7 @@ let strTotallyTubular3 = """
 //"fmVolume": 0.052148208022117615,
 
 struct Synth1Preset: Decodable {
-    let adsrPitchTracking: Float
+//    let adsrPitchTracking: Float
     let attackDuration: Float // seconds?
 //    "compressorMasterAttack": 0.0010000000474974513,
 //    "compressorMasterMakeupGain": 2,
@@ -56,7 +56,7 @@ struct Synth1Preset: Decodable {
 //    "compressorReverbWetRelease": 0.15000000596046448,
 //    "compressorReverbWetThreshold": -8,
     let cutoff: Float // frequency in Hz
-    let cutoffLFO: Float
+//    let cutoffLFO: Float
     let decayDuration: Float // seconds?
 //    "decayLFO": 0,
 //    "delayFeedback": 0.10000000149011612,
@@ -66,7 +66,7 @@ struct Synth1Preset: Decodable {
 //    "delayTime": 0.3030302822589874,
 //    "delayToggled": 0,
 //    "detuneLFO": 1,
-    let filterADSRMix: Float
+//    let filterADSRMix: Float
     let filterAttack: Float
     let filterDecay: Float
 //    "filterEnvLFO": 0,
@@ -87,9 +87,9 @@ struct Synth1Preset: Decodable {
 //    "modWheelRouting": 0,
     let name: String
 //    "noiseLFO": 0,
-    let noiseVolume: Float
+//    let noiseVolume: Float
 //    "octavePosition": 0,
-    let oscBandlimitEnable: Int // 0 or 1, really a boolean
+//    let oscBandlimitEnable: Int // 0 or 1, really a boolean
 //    "oscMixLFO": 0,
 //    "phaserFeedback": 0,
 //    "phaserMix": 0,
