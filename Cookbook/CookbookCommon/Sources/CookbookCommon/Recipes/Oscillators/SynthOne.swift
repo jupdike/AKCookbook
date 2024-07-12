@@ -15,6 +15,20 @@ import Keyboard
 import SoundpipeAudioKit
 import SwiftUI
 import Tonic
+import SporthAudioKit
+
+let strShortPercStab = """
+{"reverbToggled":0,"crushFreq":48000,"widen":0,"vco1Volume":0.800000011920929,"vco1Semitone":0,"tempoSyncToArpRate":1,"phaserMix":0,"lfoWaveform":0,"compressorMasterRelease":0.15000000596046448,"uid":"16140407-3984-408B-9EF5-DFB7D00E19BA","fmAmount":0,"decayLFO":0,"fmVolume":0.0024999999441206455,"delayInputResonance":0,"compressorReverbInputAttack":0.0010000000474974513,"category":1,"vco2Detuning":0.3400000035762787,"pitchbendMaxSemitones":12,"seqOctBoost":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"autoPanAmount":0.007111129816621542,"lfo2Waveform":0,"seqNoteOn":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],"compressorReverbWetAttack":0.0010000000474974513,"compressorReverbWetRelease":0.15000000596046448,"compressorReverbInputThreshold":-8.5,"releaseDuration":0.09944000095129013,"filterType":0,"phaserFeedback":0,"compressorReverbWetRatio":13,"compressorReverbWetThreshold":-8,"filterADSRMix":0.9960000514984131,"waveform2":1,"arpIsSequencer":true,"isFavorite":true,"name":"Short Perc Stab Pluck JFU","oscBandlimitEnable":0,"reverbMix":0.14249998331069946,"pitchbendMinSemitones":-12,"compressorReverbInputRelease":0.22499999403953552,"reverbHighPass":305.5,"waveform1":0.37371134757995605,"vcoBalance":0.5,"fmLFO":0,"delayMix":0.16124987602233887,"delayToggled":0,"decayDuration":0.14349998533725739,"arpOctave":0,"compressorReverbWetMakeupGain":1.8799999952316284,"arpTotalSteps":8,"vco2Volume":0.800000011920929,"author":"","attackDuration":0.005498750135302544,"isHoldMode":1,"arpInterval":12,"adsrPitchTracking":0,"compressorMasterAttack":0.0010000000474974513,"delayTime":0.3333333134651184,"frequencyA4":440,"reverbMixLFO":0,"arpRate":90,"delayFeedback":0.19449999928474426,"resonanceLFO":0,"compressorReverbInputRatio":13,"lfoAmplitude":0.839999794960022,"subOscSquareToggled":0,"filterAttack":0.0005000000237487257,"isArpMode":0,"compressorReverbInputMakeupGain":1.8799999952316284,"seqPatternNote":[0,4,7,11,12,11,7,4,0,0,0,0,0,0,0,0],"tremoloLFO":0,"arpDirection":0,"filterRelease":0.5,"oscMixLFO":0,"reverbFeedback":0.7443000078201294,"lfo2Amplitude":1,"isLegato":0,"vco2Semitone":0,"cutoff":3862.358642578125,"lfo2Rate":0.3750000298023224,"compressorMasterThreshold":-9,"tuningMasterSet":[1,1.0594630943592953,1.122462048309373,1.189207115002721,1.2599210498948732,1.3348398541700344,1.4142135623730951,1.4983070768766815,1.5874010519681994,1.681792830507429,1.7817974362806785,1.8877486253633868],"autoPanFrequency":0.1875000149011612,"resonance":0.10000000149011612,"userText":"AudioKit Synth One preset. Press and hold middle “C”. It sounds strangly familiar. Preset by M Y S T E R Y guest","pitchLFO":0,"isUser":true,"cutoffLFO":0,"arpSeqTempoMultiplier":0.25,"bank":"BankA","masterVolume":1.100000023841858,"tuningName":"12 ET","filterSustain":0,"phaserNotchWidth":800,"lfoRate":0.1875000149011612,"position":110,"isMono":0,"bitcrushLFO":0,"midiBendRange":2,"detuneLFO":0,"transpose":0,"delayInputCutoffTrackingRatio":0.75,"compressorMasterRatio":20,"filterEnvLFO":0,"modWheelRouting":0,"subOsc24Toggled":0,"subVolume":0.11249999701976776,"glide":0,"filterDecay":0.10474999994039536,"noiseLFO":0,"phaserRate":12,"compressorMasterMakeupGain":2,"octavePosition":0,"noiseVolume":0,"sustainLevel":0.1339999884366989}
+"""
+
+let strBabyRobotMusicbox3 = """
+{"seqOctBoost":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"vco2Volume":0.800000011920929,"reverbMixLFO":0,"compressorMasterMakeupGain":2,"oscMixLFO":0,"lfo2Rate":0.03177083656191826,"waveform2":0.2575107216835022,"tuningName":"12 ET","fmAmount":0,"fmVolume":0,"glide":0,"isUser":true,"frequencyA4":440,"tremoloLFO":0,"noiseVolume":0,"delayMix":0.21375000476837158,"tempoSyncToArpRate":1,"filterType":0,"compressorMasterThreshold":-9,"userText":"AudioKit Synth One. Step. By. Step. The Robot lives inside us all. Marching to their own beat. Seldom in  4/4 time, they march on... by Matthew Fecher","pitchLFO":0,"delayInputCutoffTrackingRatio":0.75,"delayTime":0.9836064577102661,"lfoRate":2.0333335399627686,"reverbHighPass":80,"isFavorite":true,"isLegato":0,"subOsc24Toggled":0,"lfoWaveform":0,"arpDirection":0,"phaserNotchWidth":800,"bitcrushLFO":0,"adsrPitchTracking":0.002466457663103938,"filterRelease":0.0949999988079071,"bank":"BankA","widen":0,"lfo2Waveform":0,"cutoff":6976.79736328125,"oscBandlimitEnable":0,"position":80,"filterADSRMix":1.1886223554611206,"arpInterval":12,"compressorReverbInputAttack":0.0010000000474974513,"reverbToggled":0,"subOscSquareToggled":0,"isHoldMode":0,"crushFreq":48000,"seqPatternNote":[0,0,12,12,0,-12,0,4,0,0,0,0,0,0,0,0],"compressorReverbWetAttack":0.0010000000474974513,"arpTotalSteps":7,"pitchbendMinSemitones":-12,"subVolume":0,"arpOctave":0,"modWheelRouting":0,"isMono":0,"phaserMix":0,"arpSeqTempoMultiplier":0.25,"filterEnvLFO":0,"compressorReverbWetRelease":0.15000000596046448,"vco2Detuning":-3.469446951953614e-17,"compressorReverbInputRatio":13,"seqNoteOn":[true,false,true,false,true,true,false,false,true,true,true,true,true,true,true,true],"compressorReverbInputMakeupGain":1.8799999952316284,"compressorReverbInputThreshold":-8.5,"delayInputResonance":0,"pitchbendMaxSemitones":12,"sustainLevel":0.02133338898420334,"resonanceLFO":0,"vco2Semitone":0,"uid":"5F6075F8-8924-4659-8748-3D3E1ED50D79","arpIsSequencer":true,"vcoBalance":0.5,"lfoAmplitude":0,"delayFeedback":0.10000000149011612,"lfo2Amplitude":0,"vco1Semitone":0,"resonance":0.10000000149011612,"name":"Baby Robot Musicbox JFU 3","waveform1":0.04908376932144165,"noiseLFO":0,"reverbFeedback":0.4653500020503998,"compressorMasterRatio":20,"vco1Volume":0.800000011920929,"midiBendRange":2,"autoPanFrequency":0.25416669249534607,"decayLFO":0,"octavePosition":1,"masterVolume":1.7699997425079346,"transpose":0,"compressorReverbWetMakeupGain":1.8799999952316284,"author":"","isArpMode":0,"cutoffLFO":0,"tuningMasterSet":[1,1.0594630943592953,1.122462048309373,1.189207115002721,1.2599210498948732,1.3348398541700344,1.4142135623730951,1.4983070768766815,1.5874010519681994,1.681792830507429,1.7817974362806785,1.8877486253633868],"detuneLFO":0,"filterDecay":0.4343355894088745,"compressorReverbWetRatio":13,"releaseDuration":0.6048699617385864,"delayToggled":0,"reverbMix":0.13750000298023224,"category":1,"compressorReverbInputRelease":0.22499999403953552,"phaserFeedback":0,"filterAttack":0.0005000000237487257,"decayDuration":0.4425642192363739,"fmLFO":0,"compressorMasterAttack":0.0010000000474974513,"arpRate":61,"compressorReverbWetThreshold":-8,"attackDuration":0.0005000000237487257,"compressorMasterRelease":0.15000000596046448,"phaserRate":12,"autoPanAmount":0,"filterSustain":0.10966663807630539}
+"""
+
+let strBrassyEP = """
+{"seqOctBoost":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"vco2Volume":0.20512962341308594,"reverbMixLFO":2,"compressorMasterMakeupGain":2,"oscMixLFO":0,"lfo2Rate":0.8875000476837158,"waveform2":0,"tuningName":"12 ET","fmAmount":0,"fmVolume":0,"glide":0,"isUser":true,"frequencyA4":440,"tremoloLFO":0,"noiseVolume":0,"delayMix":0.11250004917383194,"tempoSyncToArpRate":1,"filterType":0,"compressorMasterThreshold":-9,"userText":"AudioKit Synth One preset. Modern poly sound for fun! Play some chords. Preset by Matthew Fecher","pitchLFO":0,"delayInputCutoffTrackingRatio":0.75,"delayTime":0.563380241394043,"lfoRate":0.4437500238418579,"reverbHighPass":401.8500061035156,"isFavorite":true,"isLegato":0,"subOsc24Toggled":0,"lfoWaveform":0,"arpDirection":0,"phaserNotchWidth":525.25,"bitcrushLFO":0,"adsrPitchTracking":0,"filterRelease":0.2581128776073456,"bank":"BankA","widen":0,"lfo2Waveform":0,"cutoff":5257.71142578125,"oscBandlimitEnable":0,"position":71,"filterADSRMix":0.9566890597343445,"arpInterval":12,"compressorReverbInputAttack":0.0010000000474974513,"reverbToggled":0,"subOscSquareToggled":0,"isHoldMode":0,"crushFreq":48000,"seqPatternNote":[0,-12,0,4,0,-12,0,5,0,0,0,0,0,0,0,0],"compressorReverbWetAttack":0.0010000000474974513,"arpTotalSteps":8,"pitchbendMinSemitones":-12,"subVolume":0.11749999970197678,"arpOctave":2,"modWheelRouting":0,"isMono":0,"phaserMix":0.765536904335022,"arpSeqTempoMultiplier":0.25,"filterEnvLFO":0,"compressorReverbWetRelease":0.15000000596046448,"vco2Detuning":0.20000003278255463,"compressorReverbInputRatio":13,"seqNoteOn":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],"compressorReverbInputMakeupGain":1.8799999952316284,"compressorReverbInputThreshold":-8.5,"delayInputResonance":0,"pitchbendMaxSemitones":12,"sustainLevel":0.1932036131620407,"resonanceLFO":0,"vco2Semitone":7,"uid":"D2162591-C6EE-414A-B87F-0C59A9ADAD23","arpIsSequencer":false,"vcoBalance":0.4925000071525574,"lfoAmplitude":0.14249999821186066,"delayFeedback":0.2474999576807022,"lfo2Amplitude":0.5624999403953552,"vco1Semitone":0,"resonance":0.4777500033378601,"name":"Brassy EP JFU","waveform1":0,"noiseLFO":0,"reverbFeedback":0.6762747168540955,"compressorMasterRatio":20,"vco1Volume":0.32499998807907104,"midiBendRange":2,"autoPanFrequency":0.2958333492279053,"decayLFO":0,"octavePosition":1,"masterVolume":0.8524999618530273,"transpose":0,"compressorReverbWetMakeupGain":1.8799999952316284,"author":"","isArpMode":0,"cutoffLFO":1,"tuningMasterSet":[1,1.0594630943592953,1.122462048309373,1.189207115002721,1.2599210498948732,1.3348398541700344,1.4142135623730951,1.4983070768766815,1.5874010519681994,1.681792830507429,1.7817974362806785,1.8877486253633868],"detuneLFO":0,"filterDecay":0.5196621417999268,"compressorReverbWetRatio":13,"releaseDuration":0.5927701592445374,"delayToggled":0,"reverbMix":0.09000003337860107,"category":1,"compressorReverbInputRelease":0.22499999403953552,"phaserFeedback":0.34199997782707214,"filterAttack":0.0384165421128273,"decayDuration":0.6021074056625366,"fmLFO":0,"compressorMasterAttack":0.0010000000474974513,"arpRate":71,"compressorReverbWetThreshold":-8,"attackDuration":0.005239568185061216,"compressorMasterRelease":0.15000000596046448,"phaserRate":12,"autoPanAmount":0.030814819037914276,"filterSustain":0.12990745902061462}
+"""
+
 
 let strSnake3 = """
 {"bank":"BankA","vco2Detuning":-3.469446951953614e-17,"attackDuration":0.005498750135302544,"filterDecay":0.0625,"subOscSquareToggled":0,"reverbFeedback":0.4653500020503998,"filterType":0,"seqOctBoost":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"releaseDuration":0.12000000189989805,"autoPanAmount":0,"pitchLFO":0,"pitchbendMaxSemitones":12,"delayInputResonance":0,"waveform2":0.2575107216835022,"compressorReverbWetRelease":0.15000000596046448,"modWheelRouting":0,"tempoSyncToArpRate":1,"lfo2Amplitude":0.016666000708937645,"compressorReverbInputAttack":0.0010000000474974513,"autoPanFrequency":0.2569444477558136,"glide":0,"arpInterval":12,"uid":"BCC30B44-EA27-4DE6-9CEC-D76786BE4774","compressorReverbInputThreshold":-8.5,"delayToggled":0,"compressorMasterRatio":20,"phaserRate":12,"noiseVolume":0.18607406318187714,"midiBendRange":2,"compressorMasterRelease":0.15000000596046448,"vco2Volume":0.800000011920929,"reverbHighPass":700,"frequencyA4":440,"lfoAmplitude":0,"resonanceLFO":0,"fmVolume":0,"detuneLFO":0,"subOsc24Toggled":1,"tremoloLFO":0,"fmAmount":0,"phaserFeedback":0,"sustainLevel":0,"filterSustain":1,"arpTotalSteps":8,"crushFreq":48000,"pitchbendMinSemitones":-12,"lfo2Waveform":0,"vco2Semitone":19,"category":4,"resonance":0.10000000149011612,"delayInputCutoffTrackingRatio":0.75,"reverbMix":0.23499999940395355,"filterEnvLFO":0,"widen":0,"position":74,"filterAttack":0.0005000000237487257,"decayDuration":0.12099999934434891,"vco1Semitone":0,"compressorReverbWetRatio":13,"compressorReverbInputMakeupGain":1.8799999952316284,"userText":"AudioKit Synth One preset. Nice lead dance pluck. Preset by Matthew Fecher","lfo2Rate":0.0963541716337204,"filterRelease":0.0949999988079071,"isHoldMode":0,"seqPatternNote":[0,0,12,12,0,-12,0,4,0,0,0,0,0,0,0,0],"transpose":0,"isMono":0,"cutoff":4600.3251953125,"noiseLFO":0,"isFavorite":true,"compressorMasterMakeupGain":2,"isUser":true,"delayTime":0.1621621549129486,"arpOctave":0,"compressorReverbInputRatio":13,"masterVolume":1.715000033378601,"vcoBalance":0.5,"octavePosition":1,"delayMix":0.17812499403953552,"tuningMasterSet":[1,1.0594630943592953,1.122462048309373,1.189207115002721,1.2599210498948732,1.3348398541700344,1.4142135623730951,1.4983070768766815,1.5874010519681994,1.681792830507429,1.7817974362806785,1.8877486253633868],"compressorReverbWetThreshold":-8,"seqNoteOn":[true,false,true,false,true,true,false,false,true,true,true,true,true,true,true,true],"decayLFO":0,"fmLFO":0,"delayFeedback":0.23274999856948853,"reverbMixLFO":0,"cutoffLFO":0,"compressorMasterThreshold":-9,"compressorReverbInputRelease":0.22499999403953552,"compressorReverbWetMakeupGain":1.8799999952316284,"filterADSRMix":1,"arpSeqTempoMultiplier":0.25,"lfoRate":0.0963541716337204,"compressorReverbWetAttack":0.0010000000474974513,"arpRate":185,"name":"Snake w Rev+Delay JFU 3","arpDirection":0,"reverbToggled":0,"oscBandlimitEnable":0,"oscMixLFO":0,"subVolume":0.4749999940395355,"isArpMode":0,"phaserMix":0,"lfoWaveform":0,"compressorMasterAttack":0.0010000000474974513,"waveform1":0.04908376932144165,"author":"","phaserNotchWidth":800,"arpIsSequencer":true,"adsrPitchTracking":0,"tuningName":"12 ET","isLegato":0,"vco1Volume":0.800000011920929,"bitcrushLFO":0}
@@ -66,12 +80,12 @@ struct Synth1Preset: Decodable {
 //    "delayTime": 0.3030302822589874,
 //    "delayToggled": 0,
 //    "detuneLFO": 1,
-//    let filterADSRMix: Float
-//    let filterAttack: Float
-//    let filterDecay: Float
+    let filterADSRMix: Float
+    let filterAttack: Float
+    let filterDecay: Float
 //    "filterEnvLFO": 0,
-//    let filterRelease: Float
-//    let filterSustain: Float
+    let filterRelease: Float
+    let filterSustain: Float
 //    let filterType: Int // ?
     let fmAmount: Float
 //    fmLFO: 0,
@@ -151,7 +165,11 @@ class S1GeneratorBank {
     var vcoBalancer: DryWetMixer
     var adsrMixer: Mixer
     
-    var moogFilter: MoogLadder
+    //var moogFilter: MoogLadder
+    
+    // moog filter into a filter envelope that controls cutoff
+    // could add LFO-controlled cutoff to filter env for even more flexibility
+    var filter: OperationEffect
     
     var vco1SemiTonesOffset: Int8
     var vco2SemiTonesOffset: Int8
@@ -188,15 +206,26 @@ class S1GeneratorBank {
         //vco1.amplitude = // TODO point.whatever
         //vco2.amplitude = // TODO point.whatever
         ampEnv.openGate()
+        
+        // MIDI-controlled gate for filter envelope
+        if let p = paramFinder(filter, ident: "parameter1") {
+            p.ramp(to: 1, duration: 0)
+        }
     }
 
     func noteOff(pitch _: Pitch) {
         //isPlaying = false
         ampEnv.closeGate()
+        
+        // MIDI-controlled gate for filter envelope
+        // MIDI-controlled gate for filter envelope
+        if let p = paramFinder(filter, ident: "parameter1") {
+            p.ramp(to: 0, duration: 0)
+        }
     }
     
     public let output: Node
-
+    
     init(_ synth1Preset: Synth1Preset) {
         vco1.amplitude = synth1Preset.vco1Volume
         vco1.index = synth1Preset.waveform1 * 3.0
@@ -229,24 +258,59 @@ class S1GeneratorBank {
 
         bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
         
-        moogFilter = MoogLadder(bankMixer, cutoffFrequency: synth1Preset.cutoff, resonance: synth1Preset.resonance)
+        //moogFilter = MoogLadder(bankMixer, cutoffFrequency: synth1Preset.cutoff, resonance: synth1Preset.resonance)
+        //ampEnv = AmplitudeEnvelope(moogFilter)
+
+        filter = S1GeneratorBank.filterOp(bankMixer, s1preset: synth1Preset)
         
-        ampEnv = AmplitudeEnvelope(moogFilter)
+        ampEnv = AmplitudeEnvelope(filter)
+
         ampEnv.attackDuration = synth1Preset.attackDuration
         ampEnv.decayDuration = synth1Preset.decayDuration
         ampEnv.sustainLevel = synth1Preset.sustainLevel
         ampEnv.releaseDuration = synth1Preset.releaseDuration
         adsrMixer = Mixer(ampEnv)
         
-        adsrMixer.volume = 0.2 // TODO deal with the fact this is so loud but we don't want to blow out our ears testing
-        //let engine = AudioEngine()
-        output = adsrMixer
+        adsrMixer.volume = 0.4 // TODO deal with the fact this is so loud but we don't want to blow out our ears testing
+        output = adsrMixer // HACK put this back
         
         vco1.start()
         vco2.start()
         fmOsc.start()
         subOsc.start()
+        filter.start()
         ampEnv.start()
+    }
+
+    static func IndentitySporthOp(_ node : Node) -> OperationEffect {
+        let sporthStr = """
+14 p
+15 p
+"""
+        // sport processing code goes here, to deal with those two channels on the stack
+        // then that sport code leaves a single mono and calls (dup)
+        // or that code leaves two values on the stack
+        return OperationEffect(node, sporth: sporthStr)
+    }
+
+    // this is confusing. In Swift the parameters are numbered from 1 to 14
+    // but in Sporth they go from 0 to 13 with (14 p) and (15 p) corresponding to the input left and right channel samples
+    // so parameter1 is (0 p) in Sport...
+
+    // OperationTrigger is 14
+    // 14 p    is left channel
+    // 15 p    is right channel
+    static func filterOp(_ node : Node, s1preset: Synth1Preset) -> OperationEffect {
+        // TODO also DryWetMix using s1preset.filterADSRMix (should be done inside, after moogladder, before adsr)
+        // (0 p) is a gate set by noteOn/noteOff
+        let sporthStr = """
+14 p
+\(s1preset.cutoff) (0 p) \(s1preset.filterAttack) \(s1preset.filterDecay) \(s1preset.filterSustain) \(s1preset.filterRelease) adsr) *
+\(s1preset.resonance) moogladder
+dup
+"""
+
+        return OperationEffect(node, sporth: sporthStr)
     }
 }
 // easy!
@@ -265,7 +329,7 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 // 1. Next add polyphony (16-voices?)
 // 2. Wire up to hardware keyboard (see other example, but don't load big slow 40-second piano)
 // ---- wow that is already pretty cool, if a bit ear-crunching (needs:)
-// 3. ADSR envelope for filter cutoff, which will requite C/C++ DSP, according to
+// X ADSR envelope for filter cutoff, which requires DSP using Sporth :-)
 //    https://stackoverflow.com/questions/48722796/how-to-synchronize-osc-and-filter-envelope-by-note-gate-in-audiokit
 //    https://github.com/AudioKit/AudioKitSynthOne/blob/master/AudioKitSynthOne/DSP/Kernel/S1DSPKernel%2Bprocess.mm
 // would be nice:
@@ -311,7 +375,7 @@ class SynthOneConductor: ObservableObject, HasAudioEngine {
 }
 
 struct SynthOneView: View {
-    @StateObject var conductor = SynthOneConductor(strSnake3)
+    @StateObject var conductor = SynthOneConductor(strShortPercStab)
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
