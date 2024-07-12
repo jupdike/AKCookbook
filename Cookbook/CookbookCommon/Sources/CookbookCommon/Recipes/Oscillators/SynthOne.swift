@@ -150,7 +150,24 @@ struct Synth1Preset: Decodable {
         let adsrParams = "\(filterAttack) \(filterDecay) \(filterSustain) \(filterRelease)"
         return """
 14 p
-\(cutoff) (0 p) \(adsrParams) adsr) *
+
+_filterMix var
+_cutoff var
+
+\(filterADSRMix) _filterMix set
+\(cutoff) _cutoff set
+
+(
+  _filterMix get
+  _cutoff get
+  (
+    _cutoff get
+    (0 p) \(adsrParams) adsr
+    *
+  )
+  scale
+  
+)
 \(resonance) moogladder
 
 dup
