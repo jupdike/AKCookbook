@@ -134,9 +134,28 @@ struct Synth1Preset: Decodable {
     let vcoBalance: Float // -1 to 1? set to 0 in center?
     let waveform1: Float // 0.0 to 1.0, not  0.0 to 3.0 like MorphinOscillator, which is an easy conversion
     let waveform2: Float // same range
-    
+
+    // computed properties for convenience
     var subOscIs24: Bool { subOsc24Toggled > 0 }
     var subOscIsSquare: Bool { subOscSquareToggled > 0 }
+    
+    // according to OperationDSP.mm
+    // OperationTrigger is 14, so
+    // 14 p    is left channel
+    // 15 p    is right channel
+
+    var filterSporth: String {
+        // TODO also DryWetMix using s1preset.filterADSRMix (should be done inside, after moogladder, before adsr)
+        // (0 p) is a gate set by noteOn/noteOff
+        let adsrParams = "\(filterAttack) \(filterDecay) \(filterSustain) \(filterRelease)"
+        return """
+14 p
+\(cutoff) (0 p) \(adsrParams) adsr) *
+\(resonance) moogladder
+
+dup
+"""
+    }
 }
 
 // eliminate annoying, unwanted auto glissando / portamento effect w/ NodeParameter.ramp(to: value, duration: 0)
@@ -258,13 +277,9 @@ class S1GeneratorBank {
 
         bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
         
-        //moogFilter = MoogLadder(bankMixer, cutoffFrequency: synth1Preset.cutoff, resonance: synth1Preset.resonance)
-        //ampEnv = AmplitudeEnvelope(moogFilter)
-
-        filter = S1GeneratorBank.filterOp(bankMixer, s1preset: synth1Preset)
+        filter = OperationEffect(bankMixer, sporth: synth1Preset.filterSporth)
         
         ampEnv = AmplitudeEnvelope(filter)
-
         ampEnv.attackDuration = synth1Preset.attackDuration
         ampEnv.decayDuration = synth1Preset.decayDuration
         ampEnv.sustainLevel = synth1Preset.sustainLevel
@@ -297,21 +312,6 @@ class S1GeneratorBank {
     // but in Sporth they go from 0 to 13 with (14 p) and (15 p) corresponding to the input left and right channel samples
     // so parameter1 is (0 p) in Sport...
 
-    // OperationTrigger is 14
-    // 14 p    is left channel
-    // 15 p    is right channel
-    static func filterOp(_ node : Node, s1preset: Synth1Preset) -> OperationEffect {
-        // TODO also DryWetMix using s1preset.filterADSRMix (should be done inside, after moogladder, before adsr)
-        // (0 p) is a gate set by noteOn/noteOff
-        let sporthStr = """
-14 p
-\(s1preset.cutoff) (0 p) \(s1preset.filterAttack) \(s1preset.filterDecay) \(s1preset.filterSustain) \(s1preset.filterRelease) adsr) *
-\(s1preset.resonance) moogladder
-dup
-"""
-
-        return OperationEffect(node, sporth: sporthStr)
-    }
 }
 // easy!
 // 0. Noise too
