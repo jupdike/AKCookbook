@@ -144,6 +144,10 @@ struct Synth1Preset: Decodable {
     // 14 p    is left channel
     // 15 p    is right channel
 
+    // for why we need to use Sporth instead of just using Node() a bunch:
+    //    https://stackoverflow.com/questions/48722796/how-to-synchronize-osc-and-filter-envelope-by-note-gate-in-audiokit
+    //    https://github.com/AudioKit/AudioKitSynthOne/blob/master/AudioKitSynthOne/DSP/Kernel/S1DSPKernel%2Bprocess.mm
+
     var filterSporth: String {
         // TODO also DryWetMix using s1preset.filterADSRMix (should be done inside, after moogladder, before adsr)
         // (0 p) is a gate set by noteOn/noteOff
@@ -186,7 +190,6 @@ func paramFinder(_ node: Node, ident: String) -> NodeParameter? {
 }
 
 class S1GeneratorBank {
-    //public var engine = AudioEngine()
     var vco1 = MorphingOscillator()
     var vco2 = MorphingOscillator()
     var fmOsc = FMOscillator()
@@ -200,8 +203,6 @@ class S1GeneratorBank {
     var bankMixer: Mixer
     var vcoBalancer: DryWetMixer
     var adsrMixer: Mixer
-    
-    //var moogFilter: MoogLadder
     
     // moog filter into a filter envelope that controls cutoff
     // could add LFO-controlled cutoff to filter env for even more flexibility
@@ -243,6 +244,10 @@ class S1GeneratorBank {
         //vco2.amplitude = // TODO point.whatever
         ampEnv.openGate()
         
+        // this is confusing. In Swift the parameters are numbered from 1 to 14
+        // but in Sporth they go from 0 to 13 with (14 p) and (15 p) corresponding to the input left and right channel samples
+        // so parameter1 is (0 p) in Sporth...
+
         // MIDI-controlled gate for filter envelope
         if let p = paramFinder(filter, ident: "parameter1") {
             p.ramp(to: 1, duration: 0)
@@ -259,7 +264,7 @@ class S1GeneratorBank {
             p.ramp(to: 0, duration: 0)
         }
     }
-    
+
     public let output: Node
     
     init(_ synth1Preset: Synth1Preset) {
@@ -320,18 +325,14 @@ class S1GeneratorBank {
 15 p
 """
         // sport processing code goes here, to deal with those two channels on the stack
-        // then that sport code leaves a single mono and calls (dup)
+        // or just use 14 p above if mono (left channel only) then call dup later
+        //
+        // then that sporth code leaves a single mono and calls (dup)
         // or that code leaves two values on the stack
         return OperationEffect(node, sporth: sporthStr)
     }
 
-    // this is confusing. In Swift the parameters are numbered from 1 to 14
-    // but in Sporth they go from 0 to 13 with (14 p) and (15 p) corresponding to the input left and right channel samples
-    // so parameter1 is (0 p) in Sport...
-
 }
-// easy!
-// 0. Noise too
 
 
 func JSONToPreset(_ str: String) -> Synth1Preset {
@@ -345,11 +346,10 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 // For JFU Pianos project:
 // 1. Next add polyphony (16-voices?)
 // 2. Wire up to hardware keyboard (see other example, but don't load big slow 40-second piano)
-// ---- wow that is already pretty cool, if a bit ear-crunching (needs:)
-// X ADSR envelope for filter cutoff, which requires DSP using Sporth :-)
-//    https://stackoverflow.com/questions/48722796/how-to-synchronize-osc-and-filter-envelope-by-note-gate-in-audiokit
-//    https://github.com/AudioKit/AudioKitSynthOne/blob/master/AudioKitSynthOne/DSP/Kernel/S1DSPKernel%2Bprocess.mm
-// would be nice:
+
+// easy!
+// 3. Noise too
+
 // 4. LFO too?
 // 5. Phaser too?
 // 6. Pitch track?
@@ -366,15 +366,40 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 // polyphony implmented here
 class SynthOneConductor: ObservableObject, HasAudioEngine {
     var engine = AudioEngine()
-    var osc: S1GeneratorBank
-
+    let s1gens: [S1GeneratorBank]
+    var nextGen = 0
+    // maps midinote to index
+    var keyDownTracker: [Int: Int] = [:]
+    
     func noteOn(pitch: Pitch, point: CGPoint) {
-//        isPlaying = true
-        osc.noteOn(pitch: pitch, point: point)
+        let p = Int(pitch.midiNoteNumber)
+        var index = -1
+        // deal with case where there are MAX_POLY keys down already and one needs to be sent noteOfff, remove oldest note
+        if keyDownTracker.count >= MAX_POLY {
+            if let slatedForRemoval = keyDownTracker[nextGen] {
+                s1gens[nextGen].noteOff(pitch: pitch)
+                keyDownTracker.removeValue(forKey: slatedForRemoval)
+            }
+        }
+        for (key, value) in keyDownTracker {
+            if key == p {
+                index = value
+            }
+        }
+        if index == -1 {
+            index = nextGen
+            nextGen = (nextGen + 1) % MAX_POLY
+        }
+        s1gens[index].noteOn(pitch: pitch, point: point)
+        keyDownTracker[p] = index
     }
 
     func noteOff(pitch: Pitch) {
-        osc.noteOff(pitch: pitch)
+        let p = Int(pitch.midiNoteNumber)
+        if let index = keyDownTracker[p] {
+            s1gens[index].noteOff(pitch: pitch)
+            keyDownTracker.removeValue(forKey: p)
+        }
     }
 
 //    @Published var isPlaying: Bool = false {
@@ -382,11 +407,14 @@ class SynthOneConductor: ObservableObject, HasAudioEngine {
 //    }
     
     var polyMixer: Mixer
+    
+    let MAX_POLY = 16
 
     init(_ str: String) {
-        osc = S1GeneratorBank(JSONToPreset(str))
-        //engine = osc.engine
-        polyMixer = Mixer([osc.output])
+        let s1preset = JSONToPreset(str)
+        
+        s1gens = (0 ..< MAX_POLY).map({_ in S1GeneratorBank(s1preset) })
+        polyMixer = Mixer(s1gens.map({ $0.output }))
         engine.output = polyMixer
     }
 }
