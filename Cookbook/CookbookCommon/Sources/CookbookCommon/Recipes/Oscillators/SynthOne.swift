@@ -364,8 +364,8 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 // - delay  (will be in Pianos app, not S1Preset player)
 
 // polyphony implmented here
-class SynthOneConductor: ObservableObject, HasAudioEngine {
-    var engine = AudioEngine()
+class SynthOneConductor: ObservableObject, Noter {
+    //var engine = AudioEngine()
     let s1gens: [S1GeneratorBank]
     var nextGen = 0
     // maps midinote to index
@@ -401,6 +401,12 @@ class SynthOneConductor: ObservableObject, HasAudioEngine {
             keyDownTracker.removeValue(forKey: p)
         }
     }
+    
+    func stop() {
+        
+    }
+    
+    var output: Node
 
 //    @Published var isPlaying: Bool = false {
 //        didSet { isPlaying ? osc.start() : osc.stop() }
@@ -415,17 +421,48 @@ class SynthOneConductor: ObservableObject, HasAudioEngine {
         
         s1gens = (0 ..< MAX_POLY).map({_ in S1GeneratorBank(s1preset) })
         polyMixer = Mixer(s1gens.map({ $0.output }))
-        engine.output = polyMixer
+        output = polyMixer
+    }
+}
+
+class S1MIDIPlayable: ObservableObject, HasAudioEngine {
+    let engine = AudioEngine()
+    let noter: Noter
+    let midiConductor = MIDIMonitorConductor2()
+    
+    // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
+    func noteOn(pitch: Pitch, point: CGPoint) {
+        noter.noteOn(pitch: pitch, point: point)
+    }
+
+    // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
+    func noteOff(pitch: Pitch) {
+        noter.noteOff(pitch: pitch)
+    }
+    
+    func start() {
+        do { try engine.start() } catch let err { Log(err) }
+        midiConductor.start()
+    }
+    
+    func stop() {
+        engine.stop()
+        midiConductor.stop()
+    }
+    
+    init(_ noter: Noter) {
+        self.noter = noter
+        self.midiConductor.instrumentConductor = noter
+        engine.output = noter.output
     }
 }
 
 struct SynthOneView: View {
-    @StateObject var conductor = SynthOneConductor(strShortPercStab)
+    @StateObject var conductor = S1MIDIPlayable(SynthOneConductor(strBrightOrgan3))
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-            CookbookKeyboard(noteOn: conductor.noteOn,
-                             noteOff: conductor.noteOff)
+        CookbookKeyboard(noteOn: conductor.noteOn, noteOff: conductor.noteOff)
         .padding()
         .cookbookNavBarTitle("SynthOne Preset Loader")
         .onAppear {

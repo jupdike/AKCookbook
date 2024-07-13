@@ -9,6 +9,13 @@ import Tonic
 import DunneAudioKit
 
 
+protocol Noter {
+    func noteOn(pitch: Pitch, point pt: CGPoint)
+    func noteOff(pitch: Pitch)
+    var output: Node { get }
+    func stop()
+}
+
 class MIDIMonitorConductor2: ObservableObject, MIDIListener {
     let midi = MIDI()
     @Published var data = MIDIMonitorData()
@@ -20,7 +27,9 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
     var wasDown = [Bool](repeating: false, count: 128) // key track of which keeps have been pressed when isToggleOn (sustain pedal) was depressed
     var isHoldingWithFinger = [Bool](repeating: false, count: 128)
 
-    weak var instrumentConductor: InstrumentSFZConductor?
+    var instrumentConductor: Noter? = nil //InstrumentSFZConductor?
+    
+    //weak var instrumentNoteOn: ((Pitch, CGPoint) -> Void)?
     
     init() {
     }
@@ -213,17 +222,19 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
 
 
 
-class InstrumentSFZConductor: ObservableObject, HasAudioEngine {
+class InstrumentSFZConductor: ObservableObject, HasAudioEngine, Noter {
     let engine = AudioEngine()
     var instrument = Sampler2()
     //var instrument2 = Sampler2()
+    
+    var output: Node
 
     let cond2: MIDIMonitorConductor2
     
-    var lastMidiNoteVelocty = [UInt8](repeatElement(0, count: 128))
+    //var lastMidiNoteVelocty = [UInt8](repeatElement(0, count: 128))
     func noteOn(pitch: Pitch, point pt: CGPoint) {
         let vel = UInt8(127.0 * pt.x)
-        self.lastMidiNoteVelocty[Int(pitch.midiNoteNumber)] = vel
+        //self.lastMidiNoteVelocty[Int(pitch.midiNoteNumber)] = vel
         instrument.play(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), velocity: vel, channel: 0)
     }
     
@@ -257,6 +268,7 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine {
         //let mixer = Mixer(instrument, instrument2)
         engine.output = instrument //mixer
         //mixer.start()
+        output = instrument
 
         self.cond2 = MIDIMonitorConductor2()
         //self.cond2 = self
