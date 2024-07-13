@@ -159,25 +159,29 @@ struct Synth1Preset: Decodable {
     //    https://stackoverflow.com/questions/48722796/how-to-synchronize-osc-and-filter-envelope-by-note-gate-in-audiokit
     //    https://github.com/AudioKit/AudioKitSynthOne/blob/master/AudioKitSynthOne/DSP/Kernel/S1DSPKernel%2Bprocess.mm
 
-    var filterSporth: String {
+    var moogFilterEnvAmpEnvSporth: String {
         // TODO also DryWetMix using s1preset.filterADSRMix (should be done inside, after moogladder, before adsr)
         // (0 p) is a gate set by noteOn/noteOff
-        let adsrParams = "\(filterAttack) \(filterDecay) \(filterSustain) \(filterRelease)"
-        return """
-14 p
-
-_filterMix var
+        let filterAdsrParams = "\(filterAttack)   \(filterDecay)   \(filterSustain) \(filterRelease)"
+        let ampAdsrParams =    "\(attackDuration) \(decayDuration) \(sustainLevel)  \(releaseDuration)"
+        let ret = """
 _cutoff var
+_gate var
+_velocity var
+_leftin var
 
-\(filterADSRMix) _filterMix set
 \(cutoff) _cutoff set
+(0 p) _gate set
+(1 p) _velocity set
+(14 p) _leftin set
 
+_leftin get
 (
-  _filterMix get
+  \(filterADSRMix)
   _cutoff get
   (
     _cutoff get
-    (0 p) \(adsrParams) adsr
+    (_gate get) \(filterAdsrParams) adsr
     *
   )
   scale
@@ -185,10 +189,17 @@ _cutoff var
 )
 \(resonance) moogladder
 
+((_gate get) \(ampAdsrParams) adsr) *
+(_velocity get) *
+
 dup
 """
+        print(ret)
+        return ret
     }
 }
+
+
 
 // eliminate annoying, unwanted auto glissando / portamento effect w/ NodeParameter.ramp(to: value, duration: 0)
 func paramFinder(_ node: Node, ident: String) -> NodeParameter? {
@@ -205,7 +216,11 @@ class S1GeneratorBank {
     var vco2 = MorphingOscillator()
     var fmOsc = FMOscillator()
     var subOsc: Oscillator
-    var ampEnv: AmplitudeEnvelope
+    
+    // moog filter into a filter envelope that controls cutoff
+    // could add LFO-controlled cutoff to filter env for even more flexibility
+    // also applies velocity and adsr amp env
+    var filter: OperationEffect
 
     var vco1Mixer: Mixer
     var vco2Mixer: Mixer
@@ -213,12 +228,8 @@ class S1GeneratorBank {
     var subMixer: Mixer
     var bankMixer: Mixer
     var vcoBalancer: DryWetMixer
-    var adsrMixer: Mixer
-    
-    // moog filter into a filter envelope that controls cutoff
-    // could add LFO-controlled cutoff to filter env for even more flexibility
-    var filter: OperationEffect
-    
+    var filterMixer: Mixer
+        
     var vco1SemiTonesOffset: Int8
     var vco2SemiTonesOffset: Int8
     var subIs24: Bool
@@ -251,12 +262,7 @@ class S1GeneratorBank {
         if let p = paramFinder(subOsc, ident: "frequency") {
             p.ramp(to: subOscF, duration: 0)
         }
-        // TODO need to use velocity, but it doesn't seem to work to change ADSRMixer so we should just move this stuff into Sporth?
-        // so instead of filter we have filteEnvAmpEnv as one sport OperationEffect!
-        
-        //adsrMixer.volume = masterVolume *
-        ampEnv.openGate()
-        
+
         // this is confusing. In Swift the parameters are numbered from 1 to 14
         // but in Sporth they go from 0 to 13 with (14 p) and (15 p) corresponding to the input left and right channel samples
         // so parameter1 is (0 p) in Sporth...
@@ -266,11 +272,14 @@ class S1GeneratorBank {
             print("S1Preset MIDI Gate. Old (0 p) or parameter1: \(p.value) ramp to 1 instantaneously")
             p.ramp(to: 1, duration: 0)
         }
+        
+        // set MIDI-controlled velocity instantaneously for parameter2 / (1 p)
+        if let p = paramFinder(filter, ident: "parameter2") {
+            p.ramp(to: velocity, duration: 0)
+        }
     }
 
     func noteOff(pitch _: Pitch) {
-        ampEnv.closeGate()
-        
         // MIDI-controlled gate for filter envelope
         if let p = paramFinder(filter, ident: "parameter1") {
             print("S1Preset MIDI Gate. Old (0 p) or parameter1: \(p.value) ramp to 0 instantaneously")
@@ -312,25 +321,19 @@ class S1GeneratorBank {
 
         bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
         
-        filter = OperationEffect(bankMixer, sporth: synth1Preset.filterSporth)
-        
-        ampEnv = AmplitudeEnvelope(filter)
-        ampEnv.attackDuration = synth1Preset.attackDuration
-        ampEnv.decayDuration = synth1Preset.decayDuration
-        ampEnv.sustainLevel = synth1Preset.sustainLevel
-        ampEnv.releaseDuration = synth1Preset.releaseDuration
+        filter = OperationEffect(bankMixer, sporth: synth1Preset.moogFilterEnvAmpEnvSporth)
+
         masterVolume = synth1Preset.masterVolume
-        adsrMixer = Mixer(ampEnv)
-        adsrMixer.volume = masterVolume // starting volume?
-        
-        output = adsrMixer
+        filterMixer = Mixer(filter)
+        filterMixer.volume = masterVolume
+
+        output = filterMixer
         
         vco1.start()
         vco2.start()
         fmOsc.start()
         subOsc.start()
         filter.start()
-        ampEnv.start()
     }
 
     static func IndentitySporthOp(_ node : Node) -> OperationEffect {
@@ -359,14 +362,16 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 // 1. fix popping on low volume... don't use mixer. See TODO in noteOn above. Move ADSR for amp env to Sporth.
 // ----> low velocity can cause a volume pop on adsrMixer ... what gives?
 
+
+// 1b. add Pitch track (quieter at higher pitches)
+
 // easy!
-// 2. Noise too
+// 2. Noise osc / noise gen too
 
 // 3. Dropdown or select box for chosing between dozens of presets
 
 // 4. LFO too?
 // 5. Phaser too?
-// 6. Pitch track? (quieter at higher pitches)
 //
 // list of things not supported by design   (piano / pluck focused):
 // - portamento e.g. mono v. poly (only poly)
@@ -508,7 +513,7 @@ class S1MIDIPlayable: ObservableObject, HasAudioEngine {
 }
 
 struct SynthOneView: View {
-    @StateObject var conductor = S1MIDIPlayable(SynthOneConductor(strElectricBanjo))
+    @StateObject var conductor = S1MIDIPlayable(SynthOneConductor(strBrassyEP))
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
