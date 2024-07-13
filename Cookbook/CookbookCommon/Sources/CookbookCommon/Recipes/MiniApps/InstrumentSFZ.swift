@@ -126,6 +126,7 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
             if value == 127 {
                 //DispatchQueue.main.async {
                 self.isToggleOn = true
+                print("SUSTAIN PEDAL: \(value)")
                 //}
             } else {
                 // Fade out the Toggle On indicator.
@@ -136,6 +137,7 @@ class MIDIMonitorConductor2: ObservableObject, MIDIListener {
                     self.wasDown[i] = false
                 }
                 //DispatchQueue.main.async {
+                print("SUSTAIN PEDAL: \(value)")
                 self.isToggleOn = false
                 //}
             }

@@ -250,8 +250,10 @@ class S1GeneratorBank {
 
         // MIDI-controlled gate for filter envelope
         if let p = paramFinder(filter, ident: "parameter1") {
+            print("S1Preset MIDI Gate. Old (0 p) or parameter1: \(p.value) ramp to 1 instantaneously")
             p.ramp(to: 1, duration: 0)
         }
+        
     }
 
     func noteOff(pitch _: Pitch) {
@@ -261,6 +263,7 @@ class S1GeneratorBank {
         // MIDI-controlled gate for filter envelope
         // MIDI-controlled gate for filter envelope
         if let p = paramFinder(filter, ident: "parameter1") {
+            print("S1Preset MIDI Gate. Old (0 p) or parameter1: \(p.value) ramp to 0 instantaneously")
             p.ramp(to: 0, duration: 0)
         }
     }
@@ -343,23 +346,23 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 }
 
 
-// For JFU Pianos project:
-// 1. Next add polyphony (16-voices?)
-// 2. Wire up to hardware keyboard (see other example, but don't load big slow 40-second piano)
-
 // easy!
-// 3. Noise too
+// 2. Noise too
+// +  masterVolume
+
+// 3. Dropdown or select box for chosing between dozens of presets
 
 // 4. LFO too?
 // 5. Phaser too?
-// 6. Pitch track?
+// 6. Pitch track? (quieter at higher pitches)
 //
-// list of things not supported (piano / pluck focused):
+// list of things not supported by design   (piano / pluck focused):
 // - portamento e.g. mono v. poly (only poly)
 // - arp / seq
 // - tuning tables
 // - bitcrush
 // - auto-pan or widen
+
 // - reverb (will be in Pianos app, not S1Preset player)
 // - delay  (will be in Pianos app, not S1Preset player)
 
@@ -375,23 +378,55 @@ class SynthOneConductor: ObservableObject, Noter {
         let p = Int(pitch.midiNoteNumber)
         var index = -1
         // deal with case where there are MAX_POLY keys down already and one needs to be sent noteOfff, remove oldest note
-        if keyDownTracker.count >= MAX_POLY {
-            if let slatedForRemoval = keyDownTracker[nextGen] {
-                s1gens[nextGen].noteOff(pitch: pitch)
-                keyDownTracker.removeValue(forKey: slatedForRemoval)
+        if keyDownTracker.count >= MAX_POLY - 1 {
+            print("*** TOO MANY KEYS BEING HELD DOWN")
+            let nextGenMinusOne = (nextGen - 1 + MAX_POLY) % MAX_POLY
+            if keyDownTracker.values.contains(nextGenMinusOne) {
+                print("FORCIBLY REMOVED A KEY")
+                s1gens[nextGenMinusOne].noteOff(pitch: pitch)
+                var keyForValue = -1
+                for (k, v) in keyDownTracker {
+                    if v == nextGenMinusOne {
+                        keyForValue = k
+                        break
+                    }
+                }
+                if keyForValue > -1 {
+                    keyDownTracker.removeValue(forKey: keyForValue)
+                }
+                nextGen = (nextGen + 1) % MAX_POLY // never fill up all of them, so we always have an open slot
             }
         }
-        for (key, value) in keyDownTracker {
-            if key == p {
-                index = value
+        // retriggering a key that is already down (without a note off first) can happen when sustain pedal is down. allow gate to end and release to occur
+        if keyDownTracker.keys.contains(p) {
+            if let slatedForRemoval = keyDownTracker[p] {
+                print("*** retriggering a key that was not manually released (sustain pedal down?)")
+                s1gens[slatedForRemoval].noteOff(pitch: pitch)
+                keyDownTracker.removeValue(forKey: slatedForRemoval)
+            }
+        } else {
+            for (key, value) in keyDownTracker {
+                if key == p {
+                    index = value
+                }
             }
         }
         if index == -1 {
             index = nextGen
             nextGen = (nextGen + 1) % MAX_POLY
+            var bail = 0
+            while keyDownTracker.values.contains(nextGen) {
+                nextGen = (nextGen + 1) % MAX_POLY
+                // don't get stuck in infinite loop
+                bail += 1
+                if bail == MAX_POLY {
+                    break
+                }
+            }
         }
         s1gens[index].noteOn(pitch: pitch, point: point)
         keyDownTracker[p] = index
+        print("*** keys down: \(keyDownTracker.count)")
     }
 
     func noteOff(pitch: Pitch) {
