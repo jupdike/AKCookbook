@@ -211,8 +211,9 @@ class S1GeneratorBank {
     var vco1SemiTonesOffset: Int8
     var vco2SemiTonesOffset: Int8
     var subIs24: Bool
+    var masterVolume: Float
 
-    func noteOn(pitch: Pitch, point _: CGPoint) {
+    func noteOn(pitch: Pitch, point point: CGPoint) {
         //isPlaying = true
         let f1 = AUValue(pitch.midiNoteNumber + vco1SemiTonesOffset).midiNoteToFrequency()
         if let p = paramFinder(vco1, ident: "frequency") {
@@ -238,10 +239,7 @@ class S1GeneratorBank {
         if let p = paramFinder(subOsc, ident: "frequency") {
             p.ramp(to: subOscF, duration: 0)
         }
-        
-        // TODO use point.x or point.y to set ADSR envelope height / velocity / volume
-        //vco1.amplitude = // TODO point.whatever
-        //vco2.amplitude = // TODO point.whatever
+        adsrMixer.volume = masterVolume * Float(point.y)
         ampEnv.openGate()
         
         // this is confusing. In Swift the parameters are numbered from 1 to 14
@@ -253,7 +251,6 @@ class S1GeneratorBank {
             print("S1Preset MIDI Gate. Old (0 p) or parameter1: \(p.value) ramp to 1 instantaneously")
             p.ramp(to: 1, duration: 0)
         }
-        
     }
 
     func noteOff(pitch _: Pitch) {
@@ -309,10 +306,11 @@ class S1GeneratorBank {
         ampEnv.decayDuration = synth1Preset.decayDuration
         ampEnv.sustainLevel = synth1Preset.sustainLevel
         ampEnv.releaseDuration = synth1Preset.releaseDuration
+        masterVolume = synth1Preset.masterVolume
         adsrMixer = Mixer(ampEnv)
+        adsrMixer.volume = masterVolume // starting volume?
         
-        adsrMixer.volume = 0.4 // TODO deal with the fact this is so loud but we don't want to blow out our ears testing
-        output = adsrMixer // HACK put this back
+        output = adsrMixer
         
         vco1.start()
         vco2.start()
