@@ -65,20 +65,22 @@ struct SourceAudioSheet2: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                VStack(spacing: 20) {
-                    ForEach(presetPicker.sources, id: \.self) { source in
-                        Button(action: {
-                            presetPicker.picked(name: source[0], rhs: source[1])
-                            presetPicker.pickedName = source[0]
-                        }) {
-                            HStack {
-                                Text(source[0])
-                                Spacer()
-                                if presetPicker.pickedName == source[0] {
-                                    Image(systemName: presetPicker.isPlaying ? "speaker.3.fill" : "speaker.fill")
-                                }
-                            }.padding()
+            ScrollView {
+                VStack {
+                    VStack(spacing: 20) {
+                        ForEach(presetPicker.sources, id: \.self) { source in
+                            Button(action: {
+                                presetPicker.picked(name: source[0], rhs: source[1])
+                                presetPicker.pickedName = source[0]
+                            }) {
+                                HStack {
+                                    Text(source[0])
+                                    Spacer()
+                                    if presetPicker.pickedName == source[0] {
+                                        Image(systemName: presetPicker.isPlaying ? "speaker.3.fill" : "speaker.fill")
+                                    }
+                                }.padding()
+                            }
                         }
                     }
                 }
