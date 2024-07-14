@@ -544,29 +544,65 @@ protocol HandlesPresetPick {
     func noteOff(pitch: Pitch)
 }
 
+enum PianoConductorType {
+    case s1Preset, grandPiano, stkAudio
+}
+
 class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var lastName = ""
+    var lastType: PianoConductorType = .s1Preset
     var s1player: S1MIDIPlayable
+    var grandPiano: InstrumentSFZConductor?
     
     init() {
         s1player = S1MIDIPlayable(SynthOneConductor(strPairs[0][1]))
     }
 
     func presetPicked(name: String, rhs: String) {
-        lastName = name
+        if let gp = grandPiano {
+            gp.stop()
+        }
         s1player.stop()
-        s1player = S1MIDIPlayable(SynthOneConductor(rhs))
-        s1player.start()
+
+        lastName = name
+        if rhs.contains("SalGrandPiano") {
+            lastType = PianoConductorType.grandPiano
+            if grandPiano == nil {
+                grandPiano = InstrumentSFZConductor()
+            }
+            grandPiano?.start()
+            grandPiano?.instrument.releaseDuration = 0.2
+        } else {
+            lastType = PianoConductorType.s1Preset
+            s1player = S1MIDIPlayable(SynthOneConductor(rhs))
+            s1player.start()
+        }
     }
     
     // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
     func noteOn(pitch: Pitch, point: CGPoint) {
-        s1player.noteOn(pitch: pitch, point: point)
+        switch(lastType) {
+        case .s1Preset:
+            s1player.noteOn(pitch: pitch, point: point)
+        case .grandPiano:
+            grandPiano?.noteOn(pitch: pitch, point: point)
+        case .stkAudio:
+            // TODO something else
+            grandPiano?.noteOn(pitch: pitch, point: point)
+        }
     }
 
     // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
     func noteOff(pitch: Pitch) {
-        s1player.noteOff(pitch: pitch)
+        switch(lastType) {
+        case .s1Preset:
+            s1player.noteOff(pitch: pitch)
+        case .grandPiano:
+            grandPiano?.noteOff(pitch: pitch)
+        case .stkAudio:
+            // TODO something else
+            grandPiano?.noteOff(pitch: pitch)
+        }
     }
     
     func start() {
@@ -575,15 +611,31 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     
     func stop() {
         s1player.stop()
+        grandPiano?.stop()
     }
 }
+
+let morePairs: [[String]] = [
+    ["Y C5 Grand Piano", "Sounds/SalGrandPiano/GrandPianoV1"],
+    ]
+//    ["Y CP80 Electric Grand Piano", ""], // Greg Sullivan E-Pianos SFZ V2
+//    ["H Pianet Electro-mechanical", ""], // Greg Sullivan E-Pianos SFZ V2
+//    ["W EP200 Electric Piano", ""], // Greg Sullivan E-Pianos SFZ V2
+
+//    ["R Mk V Electric Piano", ""], // STKAudioKit, sample, is this really Mk V?
+//    ["Tubular Bells", ""], // STKAudioKit
+//    ["Plucked String", ""], // STKAudioKit
+//    ["Mandolin String", ""], // STKAudioKit
+//    ["Sitar String", ""], // STKAudioKit
+//  ]
+let combinedPairs = strPairs + morePairs
 
 struct SynthOneView: View {
     @StateObject var conductor: PresetPickHandler = PresetPickHandler()
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        PresetPicker(handlesPicked: conductor, sources: strPairs, pickedName: strPairs[0][0])
+        PresetPicker(handlesPicked: conductor, sources: combinedPairs, pickedName: strPairs[0][0])
         CookbookKeyboard(noteOn: conductor.noteOn, noteOff: conductor.noteOff)
         .padding()
         .cookbookNavBarTitle("SynthOne Preset Loader")
