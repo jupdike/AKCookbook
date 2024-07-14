@@ -14,6 +14,14 @@ struct MasterView: View {
         Form {
             Section(header: Text("Categories")) {
                 Group {
+                    DisclosureGroup("Pianissimo Concepts") {
+                        Group {
+                            NavigationLink("Synth1 Preset Loader", destination: SynthOneView())
+                            NavigationLink("Instrument SFZ", destination: InstrumentSFZView())
+                        }
+                    }
+                }
+                Group {
                     DisclosureGroup("Mini Apps") {
                         Group {
                             NavigationLink("Arpeggiator", destination: ArpeggiatorView())
@@ -183,7 +191,6 @@ struct MasterView: View {
                             NavigationLink("Pulse Width Modulation", destination: PWMOscillatorView())
                             NavigationLink("Sine", destination: OscillatorView())
                             NavigationLink("Waveform Morphing", destination: MorphingOscillatorView())
-                            NavigationLink("Synth1 Preset Loader", destination: SynthOneView())
                         }
                     }
 

@@ -380,23 +380,26 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
     return synth1Preset
 }
 
+// 1b. Make folder w like 24 to 30 presets from iPad, in it
+// 1c. adjust relative mastVolume levels to make switching less dramatic
+// demo for Royal and the kids
+
 // easy!
 // 2. Noise osc / noise gen too
 
-// 3. Dropdown or select box for chosing between dozens of presets
+// 3. LFO too?
+// 4. Phaser too?
+// 5. Auto-pan or widen (will be in Pianos app, not S1Preset player)
 
-// 4. LFO too?
-// 5. Phaser too?
-//
 // list of things not supported by design   (piano / pluck focused):
 // - portamento e.g. mono v. poly (only poly)
 // - arp / seq
 // - tuning tables
 // - bitcrush
-// - auto-pan or widen
 
 // - reverb (will be in Pianos app, not S1Preset player)
 // - delay  (will be in Pianos app, not S1Preset player)
+
 // NOT in SynthOne, right?
 // - EQ     (will be in Pianos app, not S1Preset player)
 // - compressor? in Pianos app, not S1Preset player   <-- maybe in AKS1, not sure
@@ -527,11 +530,60 @@ class S1MIDIPlayable: ObservableObject, HasAudioEngine {
     }
 }
 
-struct SynthOneView: View {
-    @StateObject var conductor = S1MIDIPlayable(SynthOneConductor(strBrightOrgan3))
-    @Environment(\.colorScheme) var colorScheme
+// strBabyRobotMusicbox3
+let allStrs = [strShortPercStab, strBrassyEP, strSnake3, strBrightOrgan3, strPluckYou3, strTotallyTubular3, strElectricBanjo, strPureFMPluck]
+var strPairs: [[String]] {
+    allStrs.map({ [JSONToPreset($0).name, $0] })
+}
 
+protocol HandlesPresetPick {
+    func presetPicked(name: String, rhs: String)
+    func stop()
+    func start()
+    func noteOn(pitch: Pitch, point: CGPoint)
+    func noteOff(pitch: Pitch)
+}
+
+class PresetPickHandler: HandlesPresetPick, ObservableObject {
+    var lastName = ""
+    var s1player: S1MIDIPlayable
+    
+    init() {
+        s1player = S1MIDIPlayable(SynthOneConductor(strPairs[0][1]))
+    }
+
+    func presetPicked(name: String, rhs: String) {
+        lastName = name
+        s1player.stop()
+        s1player = S1MIDIPlayable(SynthOneConductor(rhs))
+        s1player.start()
+    }
+    
+    // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
+    func noteOn(pitch: Pitch, point: CGPoint) {
+        s1player.noteOn(pitch: pitch, point: point)
+    }
+
+    // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
+    func noteOff(pitch: Pitch) {
+        s1player.noteOff(pitch: pitch)
+    }
+    
+    func start() {
+        s1player.start()
+    }
+    
+    func stop() {
+        s1player.stop()
+    }
+}
+
+struct SynthOneView: View {
+    @StateObject var conductor: PresetPickHandler = PresetPickHandler()
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
+        PresetPicker(handlesPicked: conductor, sources: strPairs, pickedName: strPairs[0][0])
         CookbookKeyboard(noteOn: conductor.noteOn, noteOff: conductor.noteOff)
         .padding()
         .cookbookNavBarTitle("SynthOne Preset Loader")
