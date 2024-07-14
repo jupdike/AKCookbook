@@ -381,7 +381,7 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 }
 
 // 1b. Make folder w like 24 to 30 presets from iPad, in it
-// 1c. adjust relative mastVolume levels to make switching less dramatic
+// 1c. adjust relative masterVolume levels to make switching less dramatic
 // demo for Royal and the kids
 
 // easy!
@@ -630,7 +630,7 @@ let morePairs: [[String]] = [
 //  ]
 let combinedPairs = strPairs + morePairs
 
-struct SynthOneView: View {
+struct PianissimoView: View {
     @StateObject var conductor: PresetPickHandler = PresetPickHandler()
     @Environment(\.colorScheme) var colorScheme
     
@@ -638,7 +638,7 @@ struct SynthOneView: View {
         PresetPicker(handlesPicked: conductor, sources: combinedPairs, pickedName: strPairs[0][0])
         CookbookKeyboard(noteOn: conductor.noteOn, noteOff: conductor.noteOff)
         .padding()
-        .cookbookNavBarTitle("SynthOne Preset Loader")
+        .cookbookNavBarTitle("Pianissimo Preset Picker")
         .onAppear {
             conductor.start()
         }

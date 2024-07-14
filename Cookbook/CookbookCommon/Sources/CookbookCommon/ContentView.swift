@@ -14,10 +14,10 @@ struct MasterView: View {
         Form {
             Section(header: Text("Categories")) {
                 Group {
-                    DisclosureGroup("Pianissimo Concepts") {
+                    DisclosureGroup("Pianissimo") {
                         Group {
-                            NavigationLink("Synth1 Preset Loader", destination: SynthOneView())
-                            NavigationLink("Instrument SFZ", destination: InstrumentSFZView())
+                            NavigationLink("Preset Picker", destination: PianissimoView())
+//                            NavigationLink("Instrument SFZ", destination: InstrumentSFZView())
                         }
                     }
                 }
