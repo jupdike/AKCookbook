@@ -622,7 +622,7 @@ let morePairs: [[String]] = [
 //  ]
 let combinedPairs = strPairs + morePairs
 
-let INITIAL_PRESET_INDEX = 6
+let INITIAL_PRESET_INDEX = 7
 
 struct PianissimoView: View {
     @StateObject var conductor: PresetPickHandler = PresetPickHandler()
