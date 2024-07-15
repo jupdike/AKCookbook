@@ -343,30 +343,6 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
     return synth1Preset
 }
 
-// 1b. Make folder w like 24 to 30 presets from iPad, in it
-// 1c. adjust relative masterVolume levels to make switching less dramatic
-// demo for Royal and the kids
-
-// easy!
-// 2. Noise osc / noise gen too
-
-// 3. LFO too?
-// 4. Phaser too?
-// 5. Auto-pan or widen (will be in Pianos app, not S1Preset player)
-
-// list of things not supported by design   (piano / pluck focused):
-// - portamento e.g. mono v. poly (only poly)
-// - arp / seq
-// - tuning tables
-// - bitcrush
-
-// - reverb (will be in Pianos app, not S1Preset player)
-// - delay  (will be in Pianos app, not S1Preset player)
-
-// NOT in SynthOne, right?
-// - EQ     (will be in Pianos app, not S1Preset player)
-// - compressor? in Pianos app, not S1Preset player   <-- maybe in AKS1, not sure
-
 // polyphony implmented here
 class SynthOneConductor: ObservableObject, Noter {
     //var engine = AudioEngine()
