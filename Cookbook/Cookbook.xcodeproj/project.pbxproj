@@ -323,7 +323,7 @@
 				DEVELOPMENT_TEAM = 8E68C7Y65V;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Cookbook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -350,7 +350,7 @@
 				DEVELOPMENT_TEAM = 8E68C7Y65V;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Cookbook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

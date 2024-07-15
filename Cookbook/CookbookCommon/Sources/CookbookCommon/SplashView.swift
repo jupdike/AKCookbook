@@ -23,6 +23,9 @@ public struct SplashView: View {
                 }
             }
         }
+        .frame(
+            minWidth: 1280, maxWidth: 7000,
+            minHeight: 800, maxHeight: 4000)
         .onAppear {
             DispatchQueue.main
                 .asyncAfter(deadline: .now() + 2) {

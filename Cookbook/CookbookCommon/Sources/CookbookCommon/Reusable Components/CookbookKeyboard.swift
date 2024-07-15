@@ -8,7 +8,7 @@ struct CookbookKeyboard: View {
     var noteOff: (Pitch) -> Void
     var octaveOffset: Int = 0
     var body: some View {
-        Keyboard(layout: .piano(pitchRange: Pitch(intValue: 48 + (12*octaveOffset)) ... Pitch(intValue: 64 + (12*octaveOffset))),
+        Keyboard(layout: .piano(pitchRange: Pitch(intValue: 36 + (12*octaveOffset)) ... Pitch(intValue: 36 + 36 - 1 + (12*octaveOffset))),
                  noteOn: noteOn, noteOff: noteOff)
     }
 }

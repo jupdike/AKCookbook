@@ -22,9 +22,11 @@ struct CookbookApp: App {
     }
 
     var body: some Scene {
+//        if #available(macCatalyst 17.0, *) {
         WindowGroup {
             SplashView()
                 .accentColor(Color.blue)
         }
+        .windowResizability(WindowResizability.contentMinSize)
     }
 }
