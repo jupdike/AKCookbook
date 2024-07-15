@@ -16,6 +16,7 @@ import SoundpipeAudioKit
 import SwiftUI
 import Tonic
 import SporthAudioKit
+import STKAudioKit
 
 //"waveform1": 0.25,
 //"waveform2": 0.28738316893577576,
@@ -546,8 +547,20 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var s1player: S1MIDIPlayable
     var grandPiano: InstrumentSFZConductor?
     
+    //var stkPlayer:
+    var rhodes: STKBase?
+//    var rhodes: RhodesPianoKey?
+//    var rhodes: TubularBells?
+//    var rhodes: MandolinString?
+    
+    var plucked: PluckedString
+
+    let stkEngine = AudioEngine()
+    //var stkMixer: Mixer?
+    
     init() {
         s1player = S1MIDIPlayable(SynthOneConductor(strPairs[INITIAL_PRESET_INDEX][1]))
+        plucked = PluckedString()
     }
 
     func presetPicked(name: String, rhs: String) {
@@ -564,13 +577,29 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             }
             grandPiano?.start()
             grandPiano?.instrument.releaseDuration = 0.2
-        } else {
+        }
+        else if rhs.contains("Rhodes") {
+            if rhodes == nil {
+                // all of thse need full MIDI HW KB playability as well as real polyphony
+                // also needs Sporth/OperationEffect simple ADSR to allow Release that we can control with a gate
+                //rhodes = RhodesPianoKey() // works with onscreen kb
+                //rhodes = TubularBells() // works with onscreen kb
+                //rhodes = MandolinString() // works with onscreen kb
+                //rhodes?.start()
+                //stkEngine.output = rhodes
+                plucked.start()
+                stkEngine.output = plucked
+                do { try stkEngine.start() } catch let err { Log(err) }
+            }
+            lastType = .stkAudio
+        }
+        else {
             lastType = PianoConductorType.s1Preset
             s1player = S1MIDIPlayable(SynthOneConductor(rhs))
             s1player.start()
         }
     }
-    
+
     // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
     func noteOn(pitch: Pitch, point: CGPoint) {
         switch(lastType) {
@@ -579,8 +608,11 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         case .grandPiano:
             grandPiano?.noteOn(pitch: pitch, point: point)
         case .stkAudio:
-            // TODO something else
-            grandPiano?.noteOn(pitch: pitch, point: point)
+            //rhodes?.trigger(note: MIDINoteNumber(pitch.midiNoteNumber), velocity: MIDIVelocity(127.0 * point.y))
+            
+            plucked.frequency = MIDINoteNumber(pitch.midiNoteNumber).midiNoteToFrequency()
+            plucked.amplitude = AUValue(point.y)
+            plucked.trigger()
         }
     }
 
@@ -593,7 +625,8 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             grandPiano?.noteOff(pitch: pitch)
         case .stkAudio:
             // TODO something else
-            grandPiano?.noteOff(pitch: pitch)
+            //grandPiano?.noteOff(pitch: pitch)
+            break
         }
     }
     
@@ -609,17 +642,17 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
 
 let morePairs: [[String]] = [
     ["Y C5 Grand Piano", "Sounds/SalGrandPiano/GrandPianoV1"],
-    ]
+    ["R Mk 1 Vintage Electric Piano", "STKAudioKit.RhodesPianoKey"], // STKAudioKit, sampled
 //    ["Y CP80 Electric Grand Piano", ""], // Greg Sullivan E-Pianos SFZ V2
 //    ["H Pianet Electro-mechanical", ""], // Greg Sullivan E-Pianos SFZ V2
 //    ["W EP200 Electric Piano", ""], // Greg Sullivan E-Pianos SFZ V2
+    ["Tubular Bells", "STKAudioKit.TubularBells"], // STKAudioKit
+    ["Mandolin String", "STKAudioKit.MandolinString"], // STKAudioKit
+    ["Plucked String", "STKAudioKit.PluckedString"], // STKAudioKit
 
-//    ["R Mk V Electric Piano", ""], // STKAudioKit, sample, is this really Mk V?
-//    ["Tubular Bells", ""], // STKAudioKit
-//    ["Plucked String", ""], // STKAudioKit
-//    ["Mandolin String", ""], // STKAudioKit
-//    ["Sitar String", ""], // STKAudioKit
-//  ]
+    //    ["Sitar String", ""], // STKAudioKit // some day? once I can rebuild STKAudioKit from source and add Sitar myself
+]
+
 let combinedPairs = strPairs + morePairs
 
 let INITIAL_PRESET_INDEX = 7
