@@ -6,8 +6,9 @@ import Tonic
 struct CookbookKeyboard: View {
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch) -> Void
+    var octaveOffset: Int = 0
     var body: some View {
-        Keyboard(layout: .piano(pitchRange: Pitch(48) ... Pitch(64)),
+        Keyboard(layout: .piano(pitchRange: Pitch(intValue: 48 + (12*octaveOffset)) ... Pitch(intValue: 64 + (12*octaveOffset))),
                  noteOn: noteOn, noteOff: noteOff)
     }
 }

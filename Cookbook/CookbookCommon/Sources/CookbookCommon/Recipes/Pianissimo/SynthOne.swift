@@ -137,7 +137,7 @@ _leftin var
 
 _leftin get
 (
-  \(filterADSRMix)
+  \(filterADSRMix) 1.0 min
   _cutoff get
   (
     _cutoff get
@@ -154,6 +154,7 @@ _leftin get
 
 dup
 """
+        // N.B. \(filterADSRMix) 1.0 min   is left like this because later we will do some LFO computation and then clamp to 1.0 max, and UI lets users set mix to 120%, otherwise we get pops and cracks (overflow) if we don't clamp this
         print(ret)
         return ret
     }
@@ -546,7 +547,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var grandPiano: InstrumentSFZConductor?
     
     init() {
-        s1player = S1MIDIPlayable(SynthOneConductor(strPairs[0][1]))
+        s1player = S1MIDIPlayable(SynthOneConductor(strPairs[INITIAL_PRESET_INDEX][1]))
     }
 
     func presetPicked(name: String, rhs: String) {
@@ -621,13 +622,15 @@ let morePairs: [[String]] = [
 //  ]
 let combinedPairs = strPairs + morePairs
 
+let INITIAL_PRESET_INDEX = 6
+
 struct PianissimoView: View {
     @StateObject var conductor: PresetPickHandler = PresetPickHandler()
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        PresetPicker(handlesPicked: conductor, sources: combinedPairs, pickedName: strPairs[0][0])
-        CookbookKeyboard(noteOn: conductor.noteOn, noteOff: conductor.noteOff)
+        PresetPicker(handlesPicked: conductor, sources: combinedPairs, pickedName: strPairs[INITIAL_PRESET_INDEX][0])
+        CookbookKeyboard(noteOn: conductor.noteOn, noteOff: conductor.noteOff, octaveOffset: 0)
         .padding()
         .cookbookNavBarTitle("Pianissimo Preset Picker")
         .onAppear {
