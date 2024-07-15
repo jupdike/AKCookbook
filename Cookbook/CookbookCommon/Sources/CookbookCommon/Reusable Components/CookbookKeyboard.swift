@@ -10,6 +10,8 @@ struct CookbookKeyboard: View {
     var body: some View {
         Keyboard(layout: .piano(pitchRange: Pitch(intValue: 36 + (12*octaveOffset)) ... Pitch(intValue: 36 + 36 - 1 + (12*octaveOffset))),
                  noteOn: noteOn, noteOff: noteOff)
+        .frame(minWidth: 640, idealWidth: 1280, maxWidth: 7000,
+               minHeight: 80, idealHeight: 320, maxHeight: 400)
     }
 }
 
