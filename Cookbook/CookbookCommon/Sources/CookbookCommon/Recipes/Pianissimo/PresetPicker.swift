@@ -67,7 +67,7 @@ struct SourceAudioSheet2: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    VStack(spacing: 20) {
+                    VStack(spacing: 5) {
                         ForEach(presetPicker.sources, id: \.self) { source in
                             Button(action: {
                                 presetPicker.picked(name: source[0], rhs: source[1])
