@@ -95,3 +95,5 @@ iOSInjectionProject/
 Xcode-config/DEVELOPMENT_TEAM.xcconfig
 
 Package.resolved
+
+Cookbook/Sounds/SalGrandPiano/Samples/*.wv
