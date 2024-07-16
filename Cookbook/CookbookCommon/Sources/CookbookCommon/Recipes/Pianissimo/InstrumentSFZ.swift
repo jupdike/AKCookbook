@@ -13,6 +13,7 @@ protocol Noter {
     func noteOn(pitch: Pitch, point pt: CGPoint)
     func noteOff(pitch: Pitch)
     var output: Node { get }
+    func start()
     func stop()
 }
 

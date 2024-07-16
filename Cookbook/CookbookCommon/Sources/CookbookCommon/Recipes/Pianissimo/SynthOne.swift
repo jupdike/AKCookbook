@@ -301,17 +301,19 @@ class S1GeneratorBank: Noter {
         // see https://github.com/AudioKit/AudioKitSynthOne/blob/6466a3715c96b7ecf1dd255a218cbd571408a314/AudioKitSynthOne/DSP/Note%20State/S1NoteState.mm#L382
         subMixer = Mixer(subOsc)
         subMixer.volume = synth1Preset.subVolume * (synth1Preset.subOscIsSquare ? 1.0 : 3.0) // make sine louder, per AKS1 source code
-
+        
         bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
         
         filter = OperationEffect(bankMixer, sporth: synth1Preset.moogFilterEnvAmpEnvSporth)
-
+        
         masterVolume = synth1Preset.masterVolume
         filterMixer = Mixer(filter)
         filterMixer.volume = masterVolume
-
-        output = filterMixer
         
+        output = filterMixer
+    }
+    
+    func start() {
         vco1.start()
         vco2.start()
         fmOsc.start()
@@ -422,7 +424,15 @@ class MonoToPolyConductor: ObservableObject, Noter {
     }
     
     func stop() {
-        
+        for gen in monoGens {
+            gen.stop()
+        }
+    }
+    
+    func start() {
+        for gen in monoGens {
+            gen.start()
+        }
     }
     
     var output: Node
@@ -442,8 +452,8 @@ class MonoToPolyConductor: ObservableObject, Noter {
     }
 }
 
-class MIDIPlayable: ObservableObject, HasAudioEngine {
-    let engine = AudioEngine()
+class MIDIPlayable: ObservableObject {
+    //let engine = AudioEngine()
     let noter: Noter
     let midiConductor = MIDIMonitorConductor2()
     
@@ -458,12 +468,12 @@ class MIDIPlayable: ObservableObject, HasAudioEngine {
     }
     
     func start() {
-        do { try engine.start() } catch let err { Log(err) }
+        //do { try engine.start() } catch let err { Log(err) }
         midiConductor.start()
     }
     
     func stop() {
-        engine.stop()
+        //engine.stop()
         midiConductor.stop()
     }
     
@@ -474,7 +484,7 @@ class MIDIPlayable: ObservableObject, HasAudioEngine {
     init(_ noter: Noter) {
         self.noter = noter
         self.midiConductor.instrumentConductor = noter
-        engine.output = noter.output
+        //engine.output = noter.output
     }
 }
 
@@ -589,6 +599,12 @@ class PhysicalBuiltinNoter: Noter {
         output = ampEnv
     }
     
+    func start() {
+        ampEnv.start()
+        plucked?.start()
+        baser?.start()
+    }
+    
     func stop() {
         ampEnv.stop()
         plucked?.stop()
@@ -615,15 +631,22 @@ class PhysicalBuiltinNoter: Noter {
 class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var lastName = ""
     var lastType: PianoConductorType = .s1Preset
-    var s1player: MIDIPlayable
+    var s1player: Noter
     var grandPiano: InstrumentSFZConductor?
     var physical: Noter
     
-    let stkEngine = AudioEngine()
+    var midiPlayable: MIDIPlayable?
+    
+    let engine = AudioEngine()
     
     init() {
         let s1preset = JSONToPreset(strPairs[INITIAL_PRESET_INDEX][1])
-        s1player = MIDIPlayable(MonoToPolyConductor({ S1GeneratorBank(s1preset) as any Noter }))
+        s1player = MonoToPolyConductor({ S1GeneratorBank(s1preset) as any Noter })
+        midiPlayable = MIDIPlayable(s1player)
+        s1player.start()
+        midiPlayable?.start()
+        engine.output = midiPlayable?.output
+        do { try engine.start() } catch let err { Log(err) }
         physical = MonoToPolyConductor({ PhysicalBuiltinNoter(.pluckedString) as any Noter })
     }
 
@@ -644,17 +667,28 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         }
         else if rhs.contains("STKAudioKit.") {
             if let which = PhysicalType.fromString(rhs) {
+                engine.stop()
+                physical.stop()
                 physical = MonoToPolyConductor({ PhysicalBuiltinNoter(which) as any Noter })
-                stkEngine.output = physical.output
-                do { try stkEngine.start() } catch let err { Log(err) }
+                midiPlayable = MIDIPlayable(physical)
+                midiPlayable?.start()
+                physical.start()
+                engine.output = physical.output
+                do { try engine.start() } catch let err { Log(err) }
                 lastType = .stkAudio
             }
         }
-        else {
+        else { // rhs is an S1Preset as JSON
+            engine.stop()
             lastType = PianoConductorType.s1Preset
             let s1preset = JSONToPreset(rhs)
-            s1player = MIDIPlayable(MonoToPolyConductor({ S1GeneratorBank(s1preset) as any Noter }))
+            s1player = MonoToPolyConductor({ S1GeneratorBank(s1preset) as any Noter })
+            midiPlayable = MIDIPlayable(s1player)
+            midiPlayable?.start()
             s1player.start()
+            engine.output = s1player.output
+            do { try engine.start() } catch let err { Log(err) }
+            lastType = .stkAudio
         }
     }
 
