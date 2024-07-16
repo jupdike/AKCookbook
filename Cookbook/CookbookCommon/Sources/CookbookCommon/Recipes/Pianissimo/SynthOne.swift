@@ -513,8 +513,94 @@ protocol HandlesPresetPick {
     func noteOff(pitch: Pitch)
 }
 
+enum STKAudioBased {
+    case TubularBells, RhosePianoKey, MandolinString
+}
+
+enum PhysicalType {
+    case stkBase(STKAudioBased)
+    case pluckedString
+    
+    static func fromString(_ str: String) -> PhysicalType? {
+        switch str {
+        case "STKAudioKit.RhodesPianoKey":
+            return .stkBase(.RhosePianoKey)
+        case "STKAudioKit.TubularBells":
+            return .stkBase(.TubularBells)
+        case "STKAudioKit.MandolinString":
+            return .stkBase(.MandolinString)
+        case "STKAudioKit.PluckedString":
+            return .pluckedString
+        default:
+            return nil
+        }
+    }
+}
+
 enum PianoConductorType {
     case s1Preset, grandPiano, stkAudio
+}
+
+// all of thse need full MIDI HW KB playability as well as real polyphony
+class PhysicalBuiltinNoder {
+    var plucked: PluckedString?
+    var baser: STKBase?
+    var output: Node
+    var whichOne: PhysicalType
+    
+    let defaultRelease: Float = 0.2
+    
+    var ampEnv: AmplitudeEnvelope
+    
+    init(_ one: PhysicalType) {
+        var node: Node
+        whichOne = one
+        switch one {
+        case .pluckedString:
+            plucked = PluckedString()
+            plucked?.start()
+            node = plucked!
+        case .stkBase(let ok):
+            switch ok {
+            case .MandolinString:
+                baser = MandolinString()
+            case .RhosePianoKey:
+                baser = RhodesPianoKey()
+            case .TubularBells:
+                baser = TubularBells()
+            }
+            baser?.start()
+            node = baser!
+        }
+        ampEnv = AmplitudeEnvelope(node)
+        ampEnv.attackDuration = 0
+        ampEnv.decayDuration = 0
+        ampEnv.sustainLevel = 1
+        ampEnv.releaseDuration = defaultRelease
+        output = ampEnv
+    }
+    
+    func stop() {
+        ampEnv.stop()
+        plucked?.stop()
+        baser?.stop()
+    }
+    
+    func noteOn(pitch: Pitch, point: CGPoint) {
+        switch(whichOne) {
+        case .pluckedString:
+            plucked?.frequency = MIDINoteNumber(pitch.midiNoteNumber).midiNoteToFrequency()
+            plucked?.amplitude = AUValue(point.y)
+            plucked?.trigger()
+        case .stkBase(_):
+            baser?.trigger(note: MIDINoteNumber(pitch.midiNoteNumber), velocity: MIDIVelocity(127.0 * point.y))
+        }
+        ampEnv.openGate()
+    }
+
+    func noteOff(pitch: Pitch) {
+        ampEnv.closeGate()
+    }
 }
 
 class PresetPickHandler: HandlesPresetPick, ObservableObject {
@@ -522,21 +608,14 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var lastType: PianoConductorType = .s1Preset
     var s1player: S1MIDIPlayable
     var grandPiano: InstrumentSFZConductor?
+    var physical: PhysicalBuiltinNoder?
     
-    //var stkPlayer:
-    var rhodes: STKBase?
-//    var rhodes: RhodesPianoKey?
-//    var rhodes: TubularBells?
-//    var rhodes: MandolinString?
-    
-    var plucked: PluckedString
-
     let stkEngine = AudioEngine()
     //var stkMixer: Mixer?
     
     init() {
         s1player = S1MIDIPlayable(SynthOneConductor(strPairs[INITIAL_PRESET_INDEX][1]))
-        plucked = PluckedString()
+        //plucked = PluckedString()
     }
 
     func presetPicked(name: String, rhs: String) {
@@ -554,20 +633,13 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             grandPiano?.start()
             grandPiano?.instrument.releaseDuration = 0.2
         }
-        else if rhs.contains("Rhodes") {
-            if rhodes == nil {
-                // all of thse need full MIDI HW KB playability as well as real polyphony
-                // also needs Sporth/OperationEffect simple ADSR to allow Release that we can control with a gate
-                //rhodes = RhodesPianoKey() // works with onscreen kb
-                //rhodes = TubularBells() // works with onscreen kb
-                //rhodes = MandolinString() // works with onscreen kb
-                //rhodes?.start()
-                //stkEngine.output = rhodes
-                plucked.start()
-                stkEngine.output = plucked
+        else if rhs.contains("STKAudioKit.") {
+            if let which = PhysicalType.fromString(rhs) {
+                physical = PhysicalBuiltinNoder(which)
+                stkEngine.output = physical?.output
                 do { try stkEngine.start() } catch let err { Log(err) }
+                lastType = .stkAudio
             }
-            lastType = .stkAudio
         }
         else {
             lastType = PianoConductorType.s1Preset
@@ -584,11 +656,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         case .grandPiano:
             grandPiano?.noteOn(pitch: pitch, point: point)
         case .stkAudio:
-            //rhodes?.trigger(note: MIDINoteNumber(pitch.midiNoteNumber), velocity: MIDIVelocity(127.0 * point.y))
-            
-            plucked.frequency = MIDINoteNumber(pitch.midiNoteNumber).midiNoteToFrequency()
-            plucked.amplitude = AUValue(point.y)
-            plucked.trigger()
+            physical?.noteOn(pitch: pitch, point: point)
         }
     }
 
@@ -600,9 +668,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         case .grandPiano:
             grandPiano?.noteOff(pitch: pitch)
         case .stkAudio:
-            // TODO something else
-            //grandPiano?.noteOff(pitch: pitch)
-            break
+            physical?.noteOff(pitch: pitch)
         }
     }
     
@@ -613,6 +679,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     func stop() {
         s1player.stop()
         grandPiano?.stop()
+        physical?.stop()
     }
 }
 
