@@ -173,7 +173,7 @@ func paramFinder(_ node: Node, ident: String) -> NodeParameter? {
     return nil
 }
 
-class S1GeneratorBank {
+class S1GeneratorBank: Noter {
     var vco1 = MorphingOscillator()
     var vco2 = MorphingOscillator()
     var fmOsc = FMOscillator()
@@ -318,6 +318,14 @@ class S1GeneratorBank {
         subOsc.start()
         filter.start()
     }
+    
+    func stop() {
+        vco1.stop()
+        vco2.stop()
+        fmOsc.stop()
+        subOsc.stop()
+        filter.stop()
+    }
 
     static func IndentitySporthOp(_ node : Node) -> OperationEffect {
         let sporthStr = """
@@ -344,13 +352,12 @@ func JSONToPreset(_ str: String) -> Synth1Preset {
 }
 
 // polyphony implmented here
-class SynthOneConductor: ObservableObject, Noter {
-    //var engine = AudioEngine()
-    let s1gens: [S1GeneratorBank]
+class MonoToPolyConductor: ObservableObject, Noter {
+    let monoGens: [Noter]
     var nextGen = 0
     // maps midinote to index
     var keyDownTracker: [Int: Int] = [:]
-    
+
     func noteOn(pitch: Pitch, point: CGPoint) {
         let p = Int(pitch.midiNoteNumber)
         var index = -1
@@ -360,7 +367,7 @@ class SynthOneConductor: ObservableObject, Noter {
             let nextGenMinusOne = (nextGen - 1 + MAX_POLY) % MAX_POLY
             if keyDownTracker.values.contains(nextGenMinusOne) {
                 print("FORCIBLY REMOVED A KEY")
-                s1gens[nextGenMinusOne].noteOff(pitch: pitch)
+                monoGens[nextGenMinusOne].noteOff(pitch: pitch)
                 var keyForValue = -1
                 for (k, v) in keyDownTracker {
                     if v == nextGenMinusOne {
@@ -378,7 +385,7 @@ class SynthOneConductor: ObservableObject, Noter {
         if keyDownTracker.keys.contains(p) {
             if let slatedForRemoval = keyDownTracker[p] {
                 print("*** retriggering a key that was not manually released (sustain pedal down?)")
-                s1gens[slatedForRemoval].noteOff(pitch: pitch)
+                monoGens[slatedForRemoval].noteOff(pitch: pitch)
                 keyDownTracker.removeValue(forKey: slatedForRemoval)
             }
         } else {
@@ -401,7 +408,7 @@ class SynthOneConductor: ObservableObject, Noter {
                 }
             }
         }
-        s1gens[index].noteOn(pitch: pitch, point: point)
+        monoGens[index].noteOn(pitch: pitch, point: point)
         keyDownTracker[p] = index
         print("*** keys down: \(keyDownTracker.count)")
     }
@@ -409,7 +416,7 @@ class SynthOneConductor: ObservableObject, Noter {
     func noteOff(pitch: Pitch) {
         let p = Int(pitch.midiNoteNumber)
         if let index = keyDownTracker[p] {
-            s1gens[index].noteOff(pitch: pitch)
+            monoGens[index].noteOff(pitch: pitch)
             keyDownTracker.removeValue(forKey: p)
         }
     }
@@ -428,16 +435,14 @@ class SynthOneConductor: ObservableObject, Noter {
     
     let MAX_POLY = 16
 
-    init(_ str: String) {
-        let s1preset = JSONToPreset(str)
-        
-        s1gens = (0 ..< MAX_POLY).map({_ in S1GeneratorBank(s1preset) })
-        polyMixer = Mixer(s1gens.map({ $0.output }))
+    init(_ noterMaker: () -> Noter) {
+        monoGens = (0 ..< MAX_POLY).map({ _ in noterMaker() })
+        polyMixer = Mixer(monoGens.map({ $0.output }))
         output = polyMixer
     }
 }
 
-class S1MIDIPlayable: ObservableObject, HasAudioEngine {
+class MIDIPlayable: ObservableObject, HasAudioEngine {
     let engine = AudioEngine()
     let noter: Noter
     let midiConductor = MIDIMonitorConductor2()
@@ -460,6 +465,10 @@ class S1MIDIPlayable: ObservableObject, HasAudioEngine {
     func stop() {
         engine.stop()
         midiConductor.stop()
+    }
+    
+    var output: Node {
+        noter.output
     }
     
     init(_ noter: Noter) {
@@ -542,7 +551,7 @@ enum PianoConductorType {
 }
 
 // all of thse need full MIDI HW KB playability as well as real polyphony
-class PhysicalBuiltinNoder {
+class PhysicalBuiltinNoter: Noter {
     var plucked: PluckedString?
     var baser: STKBase?
     var output: Node
@@ -606,16 +615,16 @@ class PhysicalBuiltinNoder {
 class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var lastName = ""
     var lastType: PianoConductorType = .s1Preset
-    var s1player: S1MIDIPlayable
+    var s1player: MIDIPlayable
     var grandPiano: InstrumentSFZConductor?
-    var physical: PhysicalBuiltinNoder?
+    var physical: Noter
     
     let stkEngine = AudioEngine()
-    //var stkMixer: Mixer?
     
     init() {
-        s1player = S1MIDIPlayable(SynthOneConductor(strPairs[INITIAL_PRESET_INDEX][1]))
-        //plucked = PluckedString()
+        let s1preset = JSONToPreset(strPairs[INITIAL_PRESET_INDEX][1])
+        s1player = MIDIPlayable(MonoToPolyConductor({ S1GeneratorBank(s1preset) as any Noter }))
+        physical = MonoToPolyConductor({ PhysicalBuiltinNoter(.pluckedString) as any Noter })
     }
 
     func presetPicked(name: String, rhs: String) {
@@ -635,15 +644,16 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         }
         else if rhs.contains("STKAudioKit.") {
             if let which = PhysicalType.fromString(rhs) {
-                physical = PhysicalBuiltinNoder(which)
-                stkEngine.output = physical?.output
+                physical = MonoToPolyConductor({ PhysicalBuiltinNoter(which) as any Noter })
+                stkEngine.output = physical.output
                 do { try stkEngine.start() } catch let err { Log(err) }
                 lastType = .stkAudio
             }
         }
         else {
             lastType = PianoConductorType.s1Preset
-            s1player = S1MIDIPlayable(SynthOneConductor(rhs))
+            let s1preset = JSONToPreset(rhs)
+            s1player = MIDIPlayable(MonoToPolyConductor({ S1GeneratorBank(s1preset) as any Noter }))
             s1player.start()
         }
     }
@@ -656,7 +666,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         case .grandPiano:
             grandPiano?.noteOn(pitch: pitch, point: point)
         case .stkAudio:
-            physical?.noteOn(pitch: pitch, point: point)
+            physical.noteOn(pitch: pitch, point: point)
         }
     }
 
@@ -668,7 +678,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         case .grandPiano:
             grandPiano?.noteOff(pitch: pitch)
         case .stkAudio:
-            physical?.noteOff(pitch: pitch)
+            physical.noteOff(pitch: pitch)
         }
     }
     
@@ -679,7 +689,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     func stop() {
         s1player.stop()
         grandPiano?.stop()
-        physical?.stop()
+        physical.stop()
     }
 }
 
@@ -703,7 +713,7 @@ let INITIAL_PRESET_INDEX = 7
 struct PianissimoView: View {
     @StateObject var conductor: PresetPickHandler = PresetPickHandler()
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body: some View {
         PresetPicker(handlesPicked: conductor, sources: combinedPairs, pickedName: strPairs[INITIAL_PRESET_INDEX][0])
         CookbookKeyboard(noteOn: conductor.noteOn, noteOff: conductor.noteOff, octaveOffset: 0)
