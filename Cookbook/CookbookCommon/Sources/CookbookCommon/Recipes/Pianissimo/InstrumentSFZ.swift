@@ -237,14 +237,14 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine, Noter {
     //var lastMidiNoteVelocty = [UInt8](repeatElement(0, count: 128))
     func noteOn(pitch: Pitch, point pt: CGPoint) {
         let vel = UInt8(127.0 * pt.x)
-        //self.lastMidiNoteVelocty[Int(pitch.midiNoteNumber)] = vel
         instrument.play(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), velocity: vel, channel: 0)
     }
     
     func noteOff(pitch: Pitch) {
         instrument.stop(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), channel: 0)
-        //instrument2.play(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), velocity: self.lastMidiNoteVelocty[Int(pitch.midiNoteNumber)], channel: 0)
     }
+    
+    let defaultRelease: Float = 0.2
     
     init(_ pathToSFZ: String) {
         // Load SFZ file with Dunne Sampler
@@ -254,19 +254,7 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine, Noter {
             Log("Could not find file 1")
         }
         instrument.masterVolume = 1.0
-        instrument.releaseDuration = 0.2 // why doesn't this do anything? It sets the knob but in practice releaseDuration is still 0.0 seconds!
-        //let RELEASE_DUR = 14
-        //instrument.parameters[RELEASE_DUR] = 0.2 // sounds good when knob is fiddled with...
 
-//        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/StrResV1", withExtension: "sfz") {
-//            instrument2.loadSFZ(url: fileURL)
-//        } else {
-//            Log("Could not find file 2")
-//        }
-//        instrument2.masterVolume = 0.4
-
-        // mixer to combine output of two instruments
-        //let mixer = Mixer(instrument, instrument2)
         engine.output = instrument //mixer
         //mixer.start()
         output = instrument

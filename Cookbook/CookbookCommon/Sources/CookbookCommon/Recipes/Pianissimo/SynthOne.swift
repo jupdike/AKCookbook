@@ -675,8 +675,10 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
                 cp80 = InstrumentSFZConductor(rhs)
             }
             cp80?.start()
-            cp80?.instrument.releaseDuration = 0.2 // TODO tweak this
-            //cp80?.instrument.decayDuration = 1.0 // to prevent pop when end of sample reached
+            cp80?.instrument.attackDuration = 0.0
+            cp80?.instrument.decayDuration = 2.0 // to prevent pop when end of sample reached
+            cp80?.instrument.sustainLevel = 0.15 // decay to silence to avoid hearing pop
+            cp80?.instrument.releaseDuration = 0.2
         }
         else if rhs.contains("WEP200") {
             lastType = .wep200
@@ -684,8 +686,10 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
                 wep200 = InstrumentSFZConductor(rhs)
             }
             wep200?.start()
-            wep200?.instrument.releaseDuration = 0.2 // TODO tweak this?
-            //wep200?.instrument.decayDuration = 1.0 // to prevent pop when end of sample reached
+            wep200?.instrument.attackDuration = 0.0
+            wep200?.instrument.decayDuration = 1.25 // to prevent pop when end of sample reached
+            wep200?.instrument.sustainLevel = 0.05 // decay to silence to avoid hearing pop
+            wep200?.instrument.releaseDuration = 0.1 // TODO tweak this?
         }
         else if rhs.contains("PianetT") {
             lastType = .pianet
@@ -693,8 +697,10 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
                 pianet = InstrumentSFZConductor(rhs)
             }
             pianet?.start()
+            pianet?.instrument.attackDuration = 0.0
+            pianet?.instrument.decayDuration = 2.0 // to prevent pop when end of sample reached
+            pianet?.instrument.sustainLevel = 0.15 // decay to silence to avoid hearing pop
             pianet?.instrument.releaseDuration = 0.2 // TODO tweak this?
-            //pianet?.instrument.decayDuration = 1.0 // to prevent pop when end of sample reached
         }
         else if rhs.contains("STKAudioKit.") {
             if let which = PhysicalType.fromString(rhs) {
