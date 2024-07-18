@@ -31,7 +31,7 @@ struct MasterView: View {
                             NavigationLink("Drum Synthesizers", destination: DrumSynthesizersView())
                             NavigationLink("Graphic Equalizer", destination: GraphicEqualizerView())
                             NavigationLink("Instrument EXS", destination: InstrumentEXSView())
-                            NavigationLink("Instrument SFZ", destination: InstrumentSFZView())
+                            //NavigationLink("Instrument SFZ", destination: InstrumentSFZView())
                         }
                         Group {
                             NavigationLink("MIDI Monitor", destination: MIDIMonitorView())

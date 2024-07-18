@@ -557,10 +557,10 @@ enum PhysicalType {
 }
 
 enum PianoConductorType {
-    case s1Preset, grandPiano, stkAudio
+    case s1Preset, grandPiano, cp80, stkAudio
 }
 
-// all of thse need full MIDI HW KB playability as well as real polyphony
+// all of these need full MIDI HW KB playability as well as real polyphony
 class PhysicalBuiltinNoter: Noter {
     var plucked: PluckedString?
     var baser: STKBase?
@@ -633,6 +633,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var lastType: PianoConductorType = .s1Preset
     var s1player: Noter
     var grandPiano: InstrumentSFZConductor?
+    var cp80: InstrumentSFZConductor?
     var physical: Noter
     
     var midiPlayable: MIDIPlayable?
@@ -657,13 +658,22 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         s1player.stop()
 
         lastName = name
+        // once piano is loaded, we don't want to unload it, because it takes so long to load
         if rhs.contains("SalGrandPiano") {
             lastType = PianoConductorType.grandPiano
             if grandPiano == nil {
-                grandPiano = InstrumentSFZConductor()
+                grandPiano = InstrumentSFZConductor(rhs)
             }
             grandPiano?.start()
             grandPiano?.instrument.releaseDuration = 0.2
+        }
+        else if rhs.contains("CP80") {
+            lastType = PianoConductorType.cp80
+            if cp80 == nil {
+                cp80 = InstrumentSFZConductor(rhs)
+            }
+            cp80?.start()
+            cp80?.instrument.releaseDuration = 0.2
         }
         else if rhs.contains("STKAudioKit.") {
             if let which = PhysicalType.fromString(rhs) {
@@ -695,10 +705,12 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     // for tapping or clicking, not MIDI HW KB which needs to consult sustain pedal state too
     func noteOn(pitch: Pitch, point: CGPoint) {
         switch(lastType) {
-        case .s1Preset:
-            s1player.noteOn(pitch: pitch, point: point)
         case .grandPiano:
             grandPiano?.noteOn(pitch: pitch, point: point)
+        case .cp80:
+            cp80?.noteOn(pitch: pitch, point: point)
+        case .s1Preset:
+            s1player.noteOn(pitch: pitch, point: point)
         case .stkAudio:
             physical.noteOn(pitch: pitch, point: point)
         }
@@ -711,6 +723,8 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             s1player.noteOff(pitch: pitch)
         case .grandPiano:
             grandPiano?.noteOff(pitch: pitch)
+        case .cp80:
+            cp80?.noteOff(pitch: pitch)
         case .stkAudio:
             physical.noteOff(pitch: pitch)
         }
@@ -728,11 +742,11 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
 }
 
 let morePairs: [[String]] = [
-    ["Y C5 Grand Piano", "Sounds/SalGrandPiano/GrandPianoV1"],
-    ["R Mk 1 Vintage Electric Piano", "STKAudioKit.RhodesPianoKey"], // STKAudioKit, sampled
-//    ["Y CP80 Electric Grand Piano", ""], // Greg Sullivan E-Pianos SFZ V2
-//    ["H Pianet Electro-mechanical", ""], // Greg Sullivan E-Pianos SFZ V2
+    ["Y C5 Grand Piano", "Sounds/SalGrandPiano/GrandPianoV1"], // Salamander Grang Piano SFZ V2 rebuilt as V1
+    ["Y CP80 Electric Grand Piano", "Sounds/CP80/CP80"], // Greg Sullivan E-Pianos SFZ V2, ditto
+//    ["H Pianet Electro-mechanical", ""], // Greg Sullivan E-Pianos SFZ V2, etc.
 //    ["W EP200 Electric Piano", ""], // Greg Sullivan E-Pianos SFZ V2
+    ["R Mk 1 Vintage Electric Piano", "STKAudioKit.RhodesPianoKey"], // STKAudioKit, sampled
     ["Tubular Bells", "STKAudioKit.TubularBells"], // STKAudioKit
     ["Mandolin String", "STKAudioKit.MandolinString"], // STKAudioKit
     ["Plucked String", "STKAudioKit.PluckedString"], // STKAudioKit

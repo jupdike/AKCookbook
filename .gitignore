@@ -97,3 +97,4 @@ Xcode-config/DEVELOPMENT_TEAM.xcconfig
 Package.resolved
 
 Cookbook/Sounds/SalGrandPiano/Samples/*.wv
+Cookbook/Sounds/CP80/Samples/*.wv

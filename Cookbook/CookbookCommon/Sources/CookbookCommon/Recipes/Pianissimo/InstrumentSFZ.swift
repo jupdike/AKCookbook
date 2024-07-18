@@ -246,11 +246,9 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine, Noter {
         //instrument2.play(noteNumber: MIDINoteNumber(pitch.midiNoteNumber), velocity: self.lastMidiNoteVelocty[Int(pitch.midiNoteNumber)], channel: 0)
     }
     
-    init() {
+    init(_ pathToSFZ: String) {
         // Load SFZ file with Dunne Sampler
-// // // // /// // // //        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/SalGrandPianoV3", withExtension: "sfz") {
-        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/GrandPianoV1", withExtension: "sfz") {
-//        if let fileURL = Bundle.main.url(forResource: "Sounds/SalGrandPiano/StrResV1", withExtension: "sfz") {
+        if let fileURL = Bundle.main.url(forResource: pathToSFZ, withExtension: "sfz") {
             instrument.loadSFZ(url: fileURL)
         } else {
             Log("Could not find file 1")
@@ -282,8 +280,10 @@ class InstrumentSFZConductor: ObservableObject, HasAudioEngine, Noter {
     }
 }
 
+/*
 struct InstrumentSFZView: View {
-    @StateObject var conductor = InstrumentSFZConductor()
+    let pathToSFZ: String
+    @StateObject var conductor = InstrumentSFZConductor(pathToSFZ: self.pathToSFZ)
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -321,3 +321,5 @@ struct InstrumentSFZView: View {
                     Color.clear : Color(red: 0.9, green: 0.9, blue: 0.9))
     }
 }
+*/
+
