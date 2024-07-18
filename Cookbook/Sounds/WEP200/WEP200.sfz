@@ -1,0 +1,90 @@
+<control>
+default_path=Samples/
+label_cc7=Vol
+label_cc10=Pan
+label_cc72=Release
+label_cc99=Veltrack
+set_cc7=100
+set_hdcc10=0.5
+set_hdcc72=0.05
+set_hdcc99=1
+<global>
+amplitude_oncc7=100
+amplitude_curvecc7=4
+pan_oncc10=100
+pan_curvecc10=1
+ampeg_attack=0.001
+ampeg_hold=5
+ampeg_holdcc133=-5
+ampeg_decay=25
+ampeg_decaycc133=-25
+ampeg_sustain=0
+ampeg_release_oncc72=2
+amp_veltrack=0
+amp_veltrack_oncc99=100
+note_polyphony=1
+off_time=0.5
+<group>
+lovel=1
+hivel=37
+group_label=pp
+<region> region_label=01 lokey=33 hikey=35 pitch_keycenter=33 volume=-3.2 sample=a1pp.wv tune=-5
+<region> region_label=02 lokey=36 hikey=38 pitch_keycenter=33 volume=-3.5 sample=a1pp.wv tune=-5
+<region> region_label=03 lokey=39 hikey=47 pitch_keycenter=44 volume=-4.2 sample=ab2pp.wv tune=-8
+<region> region_label=04 lokey=48 hikey=53 pitch_keycenter=51 volume=-4.7 sample=eb3pp.wv tune=-10
+<region> region_label=05 lokey=54 hikey=59 pitch_keycenter=56 volume=-5.5 sample=ab3pp.wv tune=-12
+<region> region_label=06 lokey=60 hikey=62 pitch_keycenter=61 volume=-5.2 sample=db4pp.wv tune=-2
+<region> region_label=07 lokey=63 hikey=68 pitch_keycenter=67 volume=-5.2 sample=g4pp.wv tune=-2
+<region> region_label=08 lokey=69 hikey=74 pitch_keycenter=73 volume=-5.4 sample=db5pp.wv tune=-5
+<region> region_label=09 lokey=75 hikey=80 pitch_keycenter=79 volume=-5.4 sample=g5mp.wv tune=-8
+<region> region_label=10 lokey=81 hikey=89 pitch_keycenter=85 volume=-5.6 sample=db6mp.wv tune=6
+<region> region_label=11 lokey=90 hikey=96 pitch_keycenter=92 volume=-5.7 sample=ab6mp.wv tune=2
+<group>
+lovel=38
+hivel=65
+group_label=mp
+<region> region_label=01 lokey=33 hikey=35 pitch_keycenter=33 volume=-3.8 sample=a1mp.wv tune=-5
+<region> region_label=02 lokey=36 hikey=41 pitch_keycenter=40 volume=-4.2 sample=e2mp.wv tune=-4
+<region> region_label=03 lokey=42 hikey=47 pitch_keycenter=45 volume=-4.7 sample=a2mp.wv tune=-2
+<region> region_label=04 lokey=48 hikey=53 pitch_keycenter=51 volume=-5.1 sample=eb3mp.wv tune=-9
+<region> region_label=05 lokey=54 hikey=59 pitch_keycenter=56 volume=-5.3 sample=ab3mp.wv tune=-8
+<region> region_label=06 lokey=60 hikey=62 pitch_keycenter=61 volume=-5.3 sample=db4mp.wv tune=4
+<region> region_label=07 lokey=63 hikey=68 pitch_keycenter=66 volume=-5.4 sample=gb4mp.wv tune=7
+<region> region_label=08 lokey=69 hikey=71 pitch_keycenter=71 volume=-5.2 sample=b4mp.wv tune=-5
+<region> region_label=09 lokey=72 hikey=74 pitch_keycenter=73 volume=-5.4 sample=db5mp.wv tune=3
+<region> region_label=10 lokey=75 hikey=80 pitch_keycenter=79 volume=-5.4 sample=g5mp.wv tune=-8
+<region> region_label=11 lokey=81 hikey=89 pitch_keycenter=85 volume=-5.6 sample=db6mp.wv tune=6
+<region> region_label=12 lokey=90 hikey=96 pitch_keycenter=92 volume=-5.7 sample=ab6mp.wv tune=2
+<group>
+lovel=66
+hivel=89
+group_label=f
+<region> region_label=01 lokey=33 hikey=35 pitch_keycenter=33 volume=-4.7 sample=a1f.wv tune=-5
+<region> region_label=02 lokey=36 hikey=38 pitch_keycenter=36 volume=-5.0 sample=c2f.wv tune=-7
+<region> region_label=03 lokey=39 hikey=44 pitch_keycenter=41 volume=-4.7 sample=f2f.wv tune=-6
+<region> region_label=04 lokey=45 hikey=50 pitch_keycenter=47 volume=-5.0 sample=b2f.wv tune=-8
+<region> region_label=05 lokey=51 hikey=53 pitch_keycenter=52 volume=-4.7 sample=e3f.wv tune=-4
+<region> region_label=06 lokey=54 hikey=59 pitch_keycenter=56 volume=-4.8 sample=ab3f.wv tune=-11
+<region> region_label=07 lokey=60 hikey=65 pitch_keycenter=61 volume=-4.8 sample=db4f.wv tune=-2
+<region> region_label=08 lokey=66 hikey=71 pitch_keycenter=68 volume=-5.0 sample=ab4f.wv
+<region> region_label=09 lokey=72 hikey=77 pitch_keycenter=73 volume=-6.0 sample=db5f.wv tune=3
+<region> region_label=10 lokey=78 hikey=80 pitch_keycenter=79 volume=-5.9 sample=g5f.wv tune=-7
+<region> region_label=11 lokey=81 hikey=89 pitch_keycenter=85 volume=-5.9 sample=db6f.wv
+<region> region_label=12 lokey=90 hikey=96 pitch_keycenter=92 volume=-5.9 sample=ab6f.wv
+<group>
+lovel=90
+hivel=127
+group_label=ff
+<region> region_label=01 lokey=33 hikey=35 pitch_keycenter=33 volume=-5.3 sample=a1ff.wv tune=-5
+<region> region_label=02 lokey=36 hikey=38 pitch_keycenter=36 volume=-5.3 sample=c2ff.wv tune=-7
+<region> region_label=03 lokey=39 hikey=44 pitch_keycenter=41 volume=-5.4 sample=f2ff.wv tune=-6
+<region> region_label=04 lokey=45 hikey=50 pitch_keycenter=47 volume=-5.4 sample=b2ff.wv tune=-8
+<region> region_label=05 lokey=51 hikey=53 pitch_keycenter=52 volume=-5.4 sample=e3ff.wv tune=-2
+<region> region_label=06 lokey=54 hikey=59 pitch_keycenter=56 volume=-5.4 sample=ab3ff.wv tune=-8
+<region> region_label=07 lokey=60 hikey=62 pitch_keycenter=61 volume=-5.4 sample=db4ff.wv tune=2
+<region> region_label=08 lokey=63 hikey=65 pitch_keycenter=64 volume=-5.4 sample=e4ff.wv tune=-3
+<region> region_label=09 lokey=66 hikey=68 pitch_keycenter=67 volume=-5.4 sample=g4ff.wv tune=3
+<region> region_label=10 lokey=69 hikey=77 pitch_keycenter=73 volume=-3.5 sample=db5ff.wv tune=-1
+<region> region_label=11 lokey=78 hikey=80 pitch_keycenter=79 volume=-4.9 sample=g5ff.wv tune=-7
+<region> region_label=12 lokey=81 hikey=89 pitch_keycenter=85 volume=-5.5 sample=db6f.wv
+<region> region_label=13 lokey=90 hikey=96 pitch_keycenter=92 volume=-6.0 sample=ab6f.wv

@@ -705,7 +705,7 @@ extension SamplerData2 {
                         } else if part.hasPrefix("loop_end") {
                             loopEndPoint = Float32(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("sample") {
-                            sample = trimmed.components(separatedBy: "sample=")[1]
+                            sample = part.components(separatedBy: "=")[1]
                         } else if part.hasPrefix("lokey") {
                             lowNoteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1]) ?? 0
                         } else if part.hasPrefix("hikey") {

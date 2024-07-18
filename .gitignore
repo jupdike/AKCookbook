@@ -98,3 +98,6 @@ Package.resolved
 
 Cookbook/Sounds/SalGrandPiano/Samples/*.wv
 Cookbook/Sounds/CP80/Samples/*.wv
+Cookbook/Sounds/WEP200/Samples/*.wv
+Cookbook/Sounds/PianetT/Samples/*.wv
+

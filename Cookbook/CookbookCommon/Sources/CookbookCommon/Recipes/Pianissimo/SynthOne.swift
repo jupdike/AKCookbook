@@ -556,10 +556,6 @@ enum PhysicalType {
     }
 }
 
-enum PianoConductorType {
-    case s1Preset, grandPiano, cp80, stkAudio
-}
-
 // all of these need full MIDI HW KB playability as well as real polyphony
 class PhysicalBuiltinNoter: Noter {
     var plucked: PluckedString?
@@ -628,12 +624,18 @@ class PhysicalBuiltinNoter: Noter {
     }
 }
 
+enum PianoConductorType {
+    case s1Preset, grandPiano, cp80, wep200, pianet, stkAudio
+}
+
 class PresetPickHandler: HandlesPresetPick, ObservableObject {
     var lastName = ""
     var lastType: PianoConductorType = .s1Preset
     var s1player: Noter
     var grandPiano: InstrumentSFZConductor?
     var cp80: InstrumentSFZConductor?
+    var wep200: InstrumentSFZConductor?
+    var pianet: InstrumentSFZConductor?
     var physical: Noter
     
     var midiPlayable: MIDIPlayable?
@@ -660,7 +662,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
         lastName = name
         // once piano is loaded, we don't want to unload it, because it takes so long to load
         if rhs.contains("SalGrandPiano") {
-            lastType = PianoConductorType.grandPiano
+            lastType = .grandPiano
             if grandPiano == nil {
                 grandPiano = InstrumentSFZConductor(rhs)
             }
@@ -668,12 +670,31 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             grandPiano?.instrument.releaseDuration = 0.2
         }
         else if rhs.contains("CP80") {
-            lastType = PianoConductorType.cp80
+            lastType = .cp80
             if cp80 == nil {
                 cp80 = InstrumentSFZConductor(rhs)
             }
             cp80?.start()
-            cp80?.instrument.releaseDuration = 0.2
+            cp80?.instrument.releaseDuration = 0.2 // TODO tweak this
+            //cp80?.instrument.decayDuration = 1.0 // to prevent pop when end of sample reached
+        }
+        else if rhs.contains("WEP200") {
+            lastType = .wep200
+            if wep200 == nil {
+                wep200 = InstrumentSFZConductor(rhs)
+            }
+            wep200?.start()
+            wep200?.instrument.releaseDuration = 0.2 // TODO tweak this?
+            //wep200?.instrument.decayDuration = 1.0 // to prevent pop when end of sample reached
+        }
+        else if rhs.contains("PianetT") {
+            lastType = .pianet
+            if pianet == nil {
+                pianet = InstrumentSFZConductor(rhs)
+            }
+            pianet?.start()
+            pianet?.instrument.releaseDuration = 0.2 // TODO tweak this?
+            //pianet?.instrument.decayDuration = 1.0 // to prevent pop when end of sample reached
         }
         else if rhs.contains("STKAudioKit.") {
             if let which = PhysicalType.fromString(rhs) {
@@ -709,6 +730,10 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             grandPiano?.noteOn(pitch: pitch, point: point)
         case .cp80:
             cp80?.noteOn(pitch: pitch, point: point)
+        case .wep200:
+            wep200?.noteOn(pitch: pitch, point: point)
+        case .pianet:
+            pianet?.noteOn(pitch: pitch, point: point)
         case .s1Preset:
             s1player.noteOn(pitch: pitch, point: point)
         case .stkAudio:
@@ -725,6 +750,10 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             grandPiano?.noteOff(pitch: pitch)
         case .cp80:
             cp80?.noteOff(pitch: pitch)
+        case .wep200:
+            wep200?.noteOff(pitch: pitch)
+        case .pianet:
+            pianet?.noteOff(pitch: pitch)
         case .stkAudio:
             physical.noteOff(pitch: pitch)
         }
@@ -737,20 +766,22 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
     func stop() {
         s1player.stop()
         grandPiano?.stop()
+        pianet?.stop()
+        cp80?.stop()
+        wep200?.stop()
         physical.stop()
     }
 }
 
 let morePairs: [[String]] = [
-    ["Y C5 Grand Piano", "Sounds/SalGrandPiano/GrandPianoV1"], // Salamander Grang Piano SFZ V2 rebuilt as V1
-    ["Y CP80 Electric Grand Piano", "Sounds/CP80/CP80"], // Greg Sullivan E-Pianos SFZ V2, ditto
-//    ["H Pianet Electro-mechanical", ""], // Greg Sullivan E-Pianos SFZ V2, etc.
-//    ["W EP200 Electric Piano", ""], // Greg Sullivan E-Pianos SFZ V2
-    ["R Mk 1 Vintage Electric Piano", "STKAudioKit.RhodesPianoKey"], // STKAudioKit, sampled
+    ["Y C5 Grand Piano", "Sounds/SalGrandPiano/GrandPianoV1"], // Salamander Grand Piano SFZ V2 rebuilt as V1
+    ["Y CP-80 Electric Grand Piano", "Sounds/CP80/CP80"], // Greg Sullivan E-Pianos SFZ V2, ditto
+    ["H PT Electro-mech Pianet", "Sounds/PianetT/PianetT"], // Greg Sullivan E-Pianos SFZ V2, etc.
+    ["W EP200 Electric Piano", "Sounds/WEP200/WEP200"], // Greg Sullivan E-Pianos SFZ V2
+    ["FR Mk 1 Vintage Electric Piano", "STKAudioKit.RhodesPianoKey"], // STKAudioKit, sampled
     ["Tubular Bells", "STKAudioKit.TubularBells"], // STKAudioKit
     ["Mandolin String", "STKAudioKit.MandolinString"], // STKAudioKit
     ["Plucked String", "STKAudioKit.PluckedString"], // STKAudioKit
-
     //    ["Sitar String", ""], // STKAudioKit // some day? once I can rebuild STKAudioKit from source and add Sitar myself
 ]
 
