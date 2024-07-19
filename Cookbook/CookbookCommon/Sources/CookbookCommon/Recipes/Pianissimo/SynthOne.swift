@@ -73,7 +73,7 @@ struct Synth1Preset: Decodable {
 //    "modWheelRouting": 0,
     let name: String
 //    "noiseLFO": 0,
-//    let noiseVolume: Float
+    let noiseVolume: Float
 //    "octavePosition": 0,
 //    let oscBandlimitEnable: Int // 0 or 1, really a boolean
 //    "oscMixLFO": 0,
@@ -178,6 +178,7 @@ class S1GeneratorBank: Noter {
     var vco2 = MorphingOscillator()
     var fmOsc = FMOscillator()
     var subOsc: Oscillator
+    var noise: WhiteNoise
     
     // moog filter into a filter envelope that controls cutoff
     // could add LFO-controlled cutoff to filter env for even more flexibility
@@ -302,7 +303,10 @@ class S1GeneratorBank: Noter {
         subMixer = Mixer(subOsc)
         subMixer.volume = synth1Preset.subVolume * (synth1Preset.subOscIsSquare ? 1.0 : 3.0) // make sine louder, per AKS1 source code
         
-        bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer)
+        noise = WhiteNoise()
+        noise.amplitude = 1.0  //synth1Preset.noiseVolume
+        
+        bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer, noise)
         
         filter = OperationEffect(bankMixer, sporth: synth1Preset.moogFilterEnvAmpEnvSporth)
         
@@ -314,6 +318,7 @@ class S1GeneratorBank: Noter {
     }
     
     func start() {
+        noise.start()
         vco1.start()
         vco2.start()
         fmOsc.start()
@@ -322,6 +327,7 @@ class S1GeneratorBank: Noter {
     }
     
     func stop() {
+        noise.stop()
         vco1.stop()
         vco2.stop()
         fmOsc.stop()
