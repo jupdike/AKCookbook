@@ -304,7 +304,7 @@ class S1GeneratorBank: Noter {
         subMixer.volume = synth1Preset.subVolume * (synth1Preset.subOscIsSquare ? 1.0 : 3.0) // make sine louder, per AKS1 source code
         
         noise = WhiteNoise()
-        noise.amplitude = 1.0  //synth1Preset.noiseVolume
+        noise.amplitude = synth1Preset.noiseVolume
         
         bankMixer = Mixer(vcoBalancer, fmOscMixer, subMixer, noise)
         
@@ -731,7 +731,7 @@ class PresetPickHandler: HandlesPresetPick, ObservableObject {
             s1player.start()
             engine.output = s1player.output
             do { try engine.start() } catch let err { Log(err) }
-            lastType = .stkAudio
+            lastType = .s1Preset
         }
     }
 
