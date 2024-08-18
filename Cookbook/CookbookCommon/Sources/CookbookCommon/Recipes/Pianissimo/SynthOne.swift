@@ -174,8 +174,23 @@ func paramFinder(_ node: Node, ident: String) -> NodeParameter? {
 }
 
 class S1GeneratorBank: Noter {
-    var vco1 = MorphingOscillator()
-    var vco2 = MorphingOscillator()
+    static func buildHighPwmTable() -> AudioKit.Table {
+        // calculate highPwmTable once
+        let squareWithHighPWM = Table()
+        // from https://github.com/analogcode/AnalogSynthX/blob/master/AnalogSynthX/AudioSystem/GeneratorBank.swift
+        let count = squareWithHighPWM.count
+        for i in squareWithHighPWM.indices {
+            if i < count / 8 {
+                squareWithHighPWM[i] = -1.0
+            } else {
+                squareWithHighPWM[i] = 1.0
+            }
+        }
+        return squareWithHighPWM
+    }
+    
+    var vco1: MorphingOscillator
+    var vco2: MorphingOscillator
     var fmOsc = FMOscillator()
     var subOsc: Oscillator
     var noise: WhiteNoise
@@ -273,12 +288,16 @@ class S1GeneratorBank: Noter {
     init(_ synth1Preset: Synth1Preset) {
         adsrPitchTracking = synth1Preset.adsrPitchTracking
         
+        let highPwmTable: AudioKit.Table = S1GeneratorBank.buildHighPwmTable()
+        
+        vco1 = MorphingOscillator(waveformArray: [Table(.triangle), Table(.square), highPwmTable, Table(.sawtooth)])
         vco1.amplitude = synth1Preset.vco1Volume
         vco1.index = synth1Preset.waveform1 * 3.0
         vco1SemiTonesOffset = Int8(synth1Preset.vco1Semitone)
         vco1Mixer = Mixer(vco1)
         vco1Mixer.volume = synth1Preset.vco1Volume
         
+        vco2 = MorphingOscillator(waveformArray: [Table(.triangle), Table(.square), highPwmTable, Table(.sawtooth)])
         vco2.amplitude = synth1Preset.vco2Volume
         vco2.index = synth1Preset.waveform2 * 3.0
         vco2.detuningOffset = synth1Preset.vco2Detuning
